@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/record_main"
+    tools:context="com.example.android.record_160806.Record_first">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="강의,인터뷰 등 놓친 대화를 쉽게 저장할 수 있습니다."
+        android:textSize="15sp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/button_first"
+        android:text="시작하기"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/border"
+        android:text="녹음 내역"
+        android:layout_marginTop="200dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:background="#d1c5c5" />
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">메모</string>
+    <string name="title_activity_new_memo">새 메모</string>
+    <string name="title_activity_new_record">새 녹음</string>
+</resources>

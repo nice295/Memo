@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">새 음성</string>
+    <string name="Title">저장</string>
+    <string name="Desc">녹음을 끝내시겠습니까?</string>
+    <string name="add">Yes</string>
+    <string name="cancel">Cancel</string>
+</resources>
