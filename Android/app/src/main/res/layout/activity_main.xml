@@ -27,7 +27,7 @@
         android:elevation="6dp"
         android:id="@+id/fab_newRecord"
         app:pressedTranslationZ="12dp"
-        app:backgroundTint="#FFFFFF"
+        app:backgroundTint="#FFFFF"
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
