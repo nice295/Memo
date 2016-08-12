@@ -33,7 +33,8 @@
         android:id="@+id/fab_newRecord"
         app:pressedTranslationZ="12dp"
         app:backgroundTint="@color/fab1_color"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:onClick="startRecord" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
         android:id="@+id/fab_newMemo"
         app:pressedTranslationZ="12dp"
         app:backgroundTint="@color/fab2_color"
+        android:onClick="startMemo"
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
