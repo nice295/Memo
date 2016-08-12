@@ -23,11 +23,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="145dp"
-        android:src="@drawable/image_placeholder"
+        android:src="@drawable/ic_mic_black_24dp"
         android:elevation="6dp"
         android:id="@+id/fab_newRecord"
         app:pressedTranslationZ="12dp"
-        app:backgroundTint="@color/fab1_color"
+        app:backgroundTint="#FFFFFF"
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -39,11 +39,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="80dp"
-        android:src="@drawable/image_placeholder"
+        android:src="@drawable/ic_mode_edit_black_24dp"
         android:elevation="6dp"
         android:id="@+id/fab_newMemo"
         app:pressedTranslationZ="12dp"
-        app:backgroundTint="@color/fab2_color"
+        app:backgroundTint="#FFFFFF"
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -55,9 +55,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_add_black_24dp"
         android:elevation="6dp"
         android:id="@+id/fab_plus"
+        app:backgroundTint="#FFFFFF"
         app:pressedTranslationZ="12dp"/>
 
 
