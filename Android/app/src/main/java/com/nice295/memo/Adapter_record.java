@@ -1,4 +1,4 @@
-package com.example.android.record_160806;
+package com.nice295.memo;
 
 /**
  * Created by PJH on 2016-08-06.
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by PJH on 2016-08-05.
  */
 
-public class DateAdapter extends BaseAdapter {
+public class Adapter_record extends BaseAdapter {
 
     List<String> formats;
     LayoutInflater inflater;
@@ -32,7 +32,7 @@ public class DateAdapter extends BaseAdapter {
 
     }
 
-    public DateAdapter(Context context,List<String> formats) {
+    public Adapter_record(Context context,List<String> formats) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
         this.formats = formats;
 
@@ -58,7 +58,7 @@ public class DateAdapter extends BaseAdapter {
         final Holder holder;
         if(convertView == null){
             holder =new Holder();
-            convertView= inflater.inflate(R.layout.message,null);
+            convertView= inflater.inflate(R.layout.record_message,null);
 
             holder.date= (TextView) convertView.findViewById(R.id.item_date);
             holder.cancel = (ImageButton) convertView.findViewById(R.id.delete);
