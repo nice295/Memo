@@ -67,7 +67,7 @@ public class Adapter_record extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.date.setText("  녹음");
+        holder.date.setText("    녹음");
 
 
         holder.cancel.setOnClickListener(new View.OnClickListener(){
