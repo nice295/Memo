@@ -23,7 +23,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        Intent intent =new Intent("com.example.android.record_160806.Record_second");
+                        Intent intent =new Intent("com.nice295.memo.NewRecordActivity_2");
                         startActivity(intent);
                     }
                 }
