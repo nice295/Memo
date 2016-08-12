@@ -1,5 +1,5 @@
+package com.nice295.memo;
 
-package com.example.android.record_160806;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-public class Record_second extends AppCompatActivity {
+public class NewRecordActivity_2 extends AppCompatActivity {
 
 
     private boolean flag;
@@ -28,13 +28,13 @@ public class Record_second extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_second);
+        setContentView(R.layout.activity_new_record_2);
 
 
         final ArrayList<String> formats= new ArrayList<String>();
 
 
-        final DateAdapter adapter = new DateAdapter(this,formats);
+        final Adapter_record adapter = new Adapter_record(this,formats);
 
 
         mButton = (Button) findViewById(R.id.button);
@@ -69,7 +69,7 @@ public class Record_second extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_record, menu);
         return true;
     }
 
@@ -82,7 +82,7 @@ public class Record_second extends AppCompatActivity {
     private void showAddDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.DialogTheme);
         LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.complete, null);
+        final View dialogView = inflater.inflate(R.layout.record_complete, null);
         dialogBuilder.setView(dialogView);
 
         dialogBuilder.setTitle(getString(R.string.Title));
@@ -103,4 +103,3 @@ public class Record_second extends AppCompatActivity {
         b.show();
     }
 }
-

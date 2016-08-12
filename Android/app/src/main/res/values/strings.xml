@@ -2,4 +2,8 @@
     <string name="app_name">Memo</string>
     <string name="title_activity_new_memo">New Memo</string>
     <string name="title_activity_new_record">New Record</string>
+    <string name="Title">저장</string>
+    <string name="Desc">녹음을 끝내시겠습니까?</string>
+    <string name="add">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
