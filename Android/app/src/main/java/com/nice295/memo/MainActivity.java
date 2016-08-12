@@ -1,6 +1,7 @@
 package com.nice295.memo;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void startMemo(View view) { startActivity(new Intent(this, NewMemoActivity.class)); }
 
 }
 
