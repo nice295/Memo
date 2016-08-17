@@ -18,40 +18,19 @@
         </activity>
 
 
-        <activity android:name="com.nice295.memo.NewMemo"
-        android:label="@string/title_activity_new_memo"
-        android:parentActivityName=".MainActivity">
-        </activity>
-
-
-        <activity android:name="com.nice295.memo.NewRecordActivity"
-        android:label="@string/title_activity_new_record"
-        android:parentActivityName=".MainActivity">
-            <intent-filter>
-                <action android:name="com.nice295.memo.NewRecordActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
+        <activity
+            android:name="com.nice295.memo.NewMemoActivity"
+            android:label="@string/title_activity_new_memo"
+            android:parentActivityName=".MainActivity"></activity>
 
 
         <activity
-            android:name=".NewRecordActivity_2">
-        <intent-filter>
-            <action android:name="com.nice295.memo.NewRecordActivity_2" />
+            android:name="com.nice295.memo.NewRecordActivity"
+            android:label="@string/title_activity_new_record"
+            android:parentActivityName=".MainActivity"></activity>
 
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
 
-        </activity>
-        <activity
-            android:name=".NewMemoActivity"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+        <activity android:name=".NewRecordActivity_2"></activity>
 
     </application>
 
