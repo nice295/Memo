@@ -3,11 +3,11 @@ Memo project for your guys
 
 Design
 -------------
-![Main](./Main.png)
+![Main](./Design/Main.png)
 
-![New Memo](./NewMemo.png)
+![New Memo](./Design/NewMemo.png)
 
-![New Record](./NewRecord.png)
+![New Record](./Design/NewRecord.png)
 
 Prototype
 ----
