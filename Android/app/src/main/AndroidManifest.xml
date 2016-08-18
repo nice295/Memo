@@ -30,8 +30,6 @@
             android:parentActivityName=".MainActivity"></activity>
 
 
-        <activity android:name=".NewRecordActivity_2"></activity>
-
     </application>
 
 </manifest>
