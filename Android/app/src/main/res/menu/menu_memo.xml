@@ -8,5 +8,5 @@
         android:id="@+id/edit_mode"
         android:orderInCategory="300"
         android:title="Done"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="always"></item>
 </menu>
