@@ -7,7 +7,14 @@
     android:id="@+id/record_main"
     tools:context="com.nice295.memo.NewRecordActivity">
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:text="녹음중"
+        android:id="@+id/recording"
+        android:layout_marginTop="60dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +29,14 @@
         android:layout_marginTop="100dp"
         android:id="@+id/button_first"
         android:text="시작하기"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/button"
+        android:text="녹음하기"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -32,7 +47,22 @@
         android:paddingTop="10dp"
         android:background="#d1c5c5" />
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/border"
+        android:clipToPadding="true" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:paddingRight="90dp"
+        />
 
 
 
