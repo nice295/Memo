@@ -5,6 +5,6 @@
     <item
         android:id="@+id/miProfile"
         app:showAsAction="ifRoom|withText"
-        android:title="edit">
+        android:title="@string/edit">
     </item>
 </menu>

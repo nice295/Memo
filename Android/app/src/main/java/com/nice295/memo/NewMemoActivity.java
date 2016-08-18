@@ -56,10 +56,10 @@ public  class NewMemoActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.memo_complete, null);
         dialogBuilder.setView(dialogView);
 
-        dialogBuilder.setTitle(getString(R.string.Title));
-        dialogBuilder.setMessage(getString(R.string.Desc1));
+        dialogBuilder.setTitle(getString(R.string.save));
+        dialogBuilder.setMessage(getString(R.string.finish_memo));
         //dialogBuilder.setMessage("");
-        dialogBuilder.setPositiveButton(getString(R.string.add), new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

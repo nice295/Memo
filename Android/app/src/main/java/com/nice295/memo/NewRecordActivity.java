@@ -102,10 +102,10 @@ public class NewRecordActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.record_complete, null);
         dialogBuilder.setView(dialogView);
 
-        dialogBuilder.setTitle(getString(R.string.Title));
-        dialogBuilder.setMessage(getString(R.string.Desc));
+        dialogBuilder.setTitle(getString(R.string.save));
+        dialogBuilder.setMessage(getString(R.string.finish_record));
         //dialogBuilder.setMessage("");
-        dialogBuilder.setPositiveButton(getString(R.string.add), new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

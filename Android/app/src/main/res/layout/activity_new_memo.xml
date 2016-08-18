@@ -13,9 +13,10 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="내용을 입력해주세요."
-        android:textCursorDrawable="@null"
-        android:background="@null"
-        android:id="@+id/editText" />
+        android:layout_height="match_parent"
+        android:hint="@string/input_ext"
+        android:id="@+id/editText"
+        android:scrollbars="vertical"
+        android:gravity="top|left"
+        android:background="@android:color/transparent" />
 </RelativeLayout>

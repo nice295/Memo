@@ -2,9 +2,12 @@
     <string name="app_name">Memo</string>
     <string name="title_activity_new_memo">New Memo</string>
     <string name="title_activity_new_record">New Record</string>
-    <string name="Title">저장</string>
-    <string name="Desc">녹음을 끝내시겠습니까?</string>
-    <string name="add">Yes</string>
+    <string name="save">save</string>
+    <string name="finish_record">Finish recoding?</string>
+    <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
-    <string name="Desc1">메모를 마치시겠습니까?</string>
+    <string name="finish_memo">Finish memo?</string>
+    <string name="input_ext">Input new memo</string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
 </resources>

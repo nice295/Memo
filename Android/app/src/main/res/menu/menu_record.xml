@@ -9,7 +9,7 @@
     <item
 
         android:id="@+id/actoin_complete"
-        android:title="완료"
+        android:title="@string/done"
         app:showAsAction="always"/>
 
 </menu>
