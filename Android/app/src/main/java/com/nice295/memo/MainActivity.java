@@ -12,8 +12,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -23,9 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.nice295.memo.model.Memo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -39,13 +45,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Animation fbOpen, fbClose, fbClockwise, fbAnticlockwise;
     boolean isOpen = false;
 
-
+    private List<Recycler_item> items; //khle
+    private RecyclerView recyclerView; //khlee
+    private RecyclerAdapter mAdapter; //khlee
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Paper.init(this); //khlee
 
         fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
         fab_memo = (FloatingActionButton) findViewById(R.id.fab_newMemo);
@@ -81,12 +90,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab_record.setOnClickListener(this);
         fab_memo.setOnClickListener(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        //RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view); //khlee
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Recycler_item> items = new ArrayList<>();
+        //List<Recycler_item> items = new ArrayList<>();
+        items = new ArrayList<>(); //khlee
+
         /* khlee: Increase test count as 20
         Recycler_item[] item = new Recycler_item[5];
         item[0] = new Recycler_item(R.drawable.a, "Memo1", "#1");
@@ -96,14 +108,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         item[4] = new Recycler_item(R.drawable.e, "Memo1", "#5");
         for (int i = 0; i < 5; i++) items.add(item[i]);
         */
+
+        /*khlee: delete again
         int testCount = 20;
         Recycler_item[] item = new Recycler_item[testCount];
         for (int idx = 0; idx < testCount; idx++) {
             item[idx] = new Recycler_item(R.drawable.a, "Memo " + idx, "#" + idx);
             items.add(item[idx]);
         }
+        */
+
+        /*
+        LinkedList<Recycler_item> database = Paper.book().read(Constants.MEMOS, new LinkedList());
+        Log.d(TAG, "Memo size: " + database.size());
+        for (int idx = 0; idx < database.size(); idx++) {
+            Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
+            items.add( database.get(idx) );
+        }
 
         recyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main));
+        */
+        mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        LinkedList<Recycler_item> database = Paper.book().read(Constants.MEMOS, new LinkedList());
+        Log.d(TAG, "Memo size: " + database.size());
+        for (int idx = 0; idx < database.size(); idx++) {
+            Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
+            items.add( database.get(idx) );
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -113,6 +153,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()== R.id.miProfile) { //khlee: for debugging
+            Paper.book().destroy();
+            mAdapter.notifyDataSetChanged();
+        }
+
+        return true;
+    }
+
 
     //khlee: All click are here
     @Override
