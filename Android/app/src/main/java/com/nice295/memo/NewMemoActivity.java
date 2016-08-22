@@ -4,14 +4,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import java.util.LinkedList;
 
@@ -82,7 +79,7 @@ public  class NewMemoActivity extends AppCompatActivity {
 
                 // khlee: Save new memo into database
                 LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                memos.add(new Recycler_item(R.drawable.a, title, mEtMemo.getText().toString()));
+                memos.add(new Recycler_item(R.drawable.ic_mode_edit_black_24dp, title, mEtMemo.getText().toString()));
                 Paper.book().write(Constants.MEMOS, memos);
 
                 finish();
