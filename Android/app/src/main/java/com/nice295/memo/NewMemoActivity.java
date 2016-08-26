@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,27 @@ public  class NewMemoActivity extends AppCompatActivity {
          */
         mEtMemo = (EditText) findViewById(R.id.editText); //khlee
     }
+
+    //20160826 jaewoo
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.back_title))
+                        .setMessage(getString(R.string.back_message))
+                        .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.CANCEL), null).show();
+                return false;
+            default:
+                return false;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_memo, menu);
