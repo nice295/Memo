@@ -10,4 +10,8 @@
     <string name="input_text">새로운 메모를 입력하세요</string>
     <string name="done">완료</string>
     <string name="edit">편집</string>
+    <string name="back_title">알림</string>
+    <string name="back_message">메인화면으로 돌아가시겠습니까?</string>
+    <string name="YES">네</string>
+    <string name="CANCEL">아니요</string>
 </resources>

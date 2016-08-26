@@ -10,4 +10,8 @@
     <string name="input_ext">Input new memo</string>
     <string name="done">Done</string>
     <string name="edit">Edit</string>
+    <string name="back_title">Notice</string>
+    <string name="back_message">Do you wnat to go back main screen?</string>
+    <string name="YES">Yes</string>
+    <string name="CANCEL">No</string>
 </resources>
