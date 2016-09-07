@@ -62,7 +62,7 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add_black_24dp"
         android:elevation="6dp"
-        app:backgroundTint="@color/fab_color"
+        app:background="@color/fab_color"
         android:id="@+id/fab_plus"
         app:pressedTranslationZ="12dp"/>
 

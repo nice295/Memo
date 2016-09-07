@@ -5,6 +5,9 @@ package com.nice295.memo;
  */
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,7 +23,8 @@ import java.util.List;
  */
 
 public class Adapter_record extends BaseAdapter {
-
+    private String outputFile = null;
+    private MediaRecorder myAudioRecorder;
     List<String> formats;
     LayoutInflater inflater;
 
@@ -29,7 +34,7 @@ public class Adapter_record extends BaseAdapter {
 
         TextView date;
         ImageButton cancel;
-
+        ImageButton play;
     }
 
     public Adapter_record(Context context,List<String> formats) {
@@ -56,10 +61,11 @@ public class Adapter_record extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
-        if(convertView == null){
+        if(convertView == null){//if문으로 객체가 없을때 작동,목록에 행들을 출력할 때 모든 객체의 행이 생성되는것이나ㅣ고 화면에 보이는 행들만 생성됨
             holder =new Holder();
             convertView= inflater.inflate(R.layout.record_message,null);
 
+            holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
             holder.date= (TextView) convertView.findViewById(R.id.item_date);
             holder.cancel = (ImageButton) convertView.findViewById(R.id.delete);
             convertView.setTag(holder);
@@ -70,10 +76,47 @@ public class Adapter_record extends BaseAdapter {
         holder.date.setText("    녹음");
 
 
+
+        holder.play.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
+
+                //do something
+                myAudioRecorder=new MediaRecorder();
+                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                myAudioRecorder.setOutputFile(outputFile);
+                MediaPlayer m = new MediaPlayer();
+
+                try {
+                    m.setDataSource(outputFile);
+                }
+
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    m.prepare();
+                }
+
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                m.start();
+                // Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
+
+                notifyDataSetChanged();
+            }
+        });
         holder.cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
+
+
                 formats.remove(position); //or some other task
                 notifyDataSetChanged();
             }
