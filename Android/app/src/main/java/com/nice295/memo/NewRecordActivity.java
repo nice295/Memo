@@ -1,7 +1,9 @@
 package com.nice295.memo;
 
 import android.content.DialogInterface;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -14,12 +16,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class NewRecordActivity extends AppCompatActivity {
 
-
+    public MediaRecorder myAudioRecorder;
+    public String outputFile = null;
     private boolean flag;
     private static Button button;
     private Button mButton;
@@ -51,18 +56,35 @@ public class NewRecordActivity extends AppCompatActivity {
         mButton.setVisibility(View.GONE);
 
 
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
+
+
+        myAudioRecorder=new MediaRecorder();
+        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        myAudioRecorder.setOutputFile(outputFile);
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final ListView list = (ListView) findViewById(R.id.list);
                 formats.add("yy.MM.dd  HH:mm");
                 list.setAdapter(adapter);
+
+                myAudioRecorder.stop();
+                myAudioRecorder.release();
+                myAudioRecorder  = null;
+
+
+                Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
                 adapter.notifyDataSetChanged();
             }
         });
 
 
     }
+
 
     //20160826 jaewoo
     @Override
@@ -97,6 +119,23 @@ public class NewRecordActivity extends AppCompatActivity {
                 mProgressBar.setVisibility(ProgressBar.VISIBLE);
                 mText.setVisibility(View.VISIBLE);
                 menu.findItem(R.id.actoin_complete).setVisible(true);
+
+                try {
+                    myAudioRecorder.prepare();
+                    myAudioRecorder.start();
+                }
+
+                catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
 
             }
         });
