@@ -205,6 +205,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent =new Intent(context,DescActivity.class);
+
+                    intent.putExtra("VALUE", item.getdesc());
+
+                    startActivity(intent);
+
                     Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });

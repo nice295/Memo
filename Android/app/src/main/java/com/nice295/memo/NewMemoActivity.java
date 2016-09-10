@@ -38,6 +38,7 @@ public  class NewMemoActivity extends AppCompatActivity {
          setSupportActionBar(tool_bar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
          */
         mEtMemo = (EditText) findViewById(R.id.editText); //khlee
+
     }
 
     //20160826 jaewoo
@@ -79,7 +80,7 @@ public  class NewMemoActivity extends AppCompatActivity {
                 finish();
 
             }
-            Toast.makeText(this,"버튼 한번 더 누르면 메모을 취소하고 메인화면으로 돌아갑니다",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"버튼 한번 더 누르면 메모를 취소하고 메인화면으로 돌아갑니다",Toast.LENGTH_SHORT).show();
             lastTimeBackPressed = System.currentTimeMillis();
         }
         return true;
