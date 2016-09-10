@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 
@@ -22,7 +23,7 @@ public  class NewMemoActivity extends AppCompatActivity {
     private static final String TAG = "NewMemoActivity";
 
     private EditText mEtMemo; //khlee
-
+    private long lastTimeBackPressed;//jaewoo
     // khlee: delete useless views
     //private Toolbar tool_bar;                              // Declaring the Toolbar Object
 
@@ -73,7 +74,13 @@ public  class NewMemoActivity extends AppCompatActivity {
             showAddDialog();
         }
         if (id == android.R.id.home) {
-            finish();
+            if (System.currentTimeMillis() - lastTimeBackPressed <1500)
+            {
+                finish();
+
+            }
+            Toast.makeText(this,"버튼 한번 더 누르면 메모을 취소하고 메인화면으로 돌아갑니다",Toast.LENGTH_SHORT).show();
+            lastTimeBackPressed = System.currentTimeMillis();
         }
         return true;
 

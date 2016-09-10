@@ -31,7 +31,7 @@ public class NewRecordActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private ImageButton mdelete;
     private TextView mText;
-
+    private long lastTimeBackPressed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +149,14 @@ public class NewRecordActivity extends AppCompatActivity {
             showAddDialog();
         }
         if (id == android.R.id.home) {
-            finish();
+            if (System.currentTimeMillis() - lastTimeBackPressed <1500)
+            {
+                finish();
+
+            }
+            Toast.makeText(this,"버튼 한번 더 누르면 녹음을 취소하고 메인화면으로 돌아갑니다",Toast.LENGTH_SHORT).show();
+            lastTimeBackPressed = System.currentTimeMillis();
+
         }
         return true;
 
