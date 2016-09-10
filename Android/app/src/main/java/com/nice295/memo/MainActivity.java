@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.nice295.memo.model.Memo;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -131,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
         recyclerView.setAdapter(mAdapter);
     }
+
 
     @Override
     protected void onStart() {
