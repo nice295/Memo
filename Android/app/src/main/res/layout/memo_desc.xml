@@ -15,7 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/desc_memo"
+        android:textSize="20sp"
         android:scrollbars="vertical"
         android:gravity="top|left"
         android:background="@android:color/transparent" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/desc_edit"
+        android:scrollbars="vertical"
+        android:textSize="20sp"
+        android:gravity="top|left"
+        android:background="@android:color/transparent"
+        />
+
 </RelativeLayout>

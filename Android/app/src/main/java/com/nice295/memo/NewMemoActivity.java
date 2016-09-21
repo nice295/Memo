@@ -111,7 +111,7 @@ public  class NewMemoActivity extends AppCompatActivity {
                 LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
                 memos.add(new Recycler_item(R.drawable.ic_mode_edit_black_24dp, title, mEtMemo.getText().toString()));
                 Paper.book().write(Constants.MEMOS, memos);
-
+                notifyDataSetChanged();
                 finish();
             }
         });
