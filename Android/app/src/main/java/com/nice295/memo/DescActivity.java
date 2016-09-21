@@ -1,11 +1,13 @@
 package com.nice295.memo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -65,9 +67,14 @@ public class DescActivity extends AppCompatActivity {
             edit_memo.setText(temp);
            desc_memo.toString();*/
             edit_memo.requestFocus();
+            edit_memo.setSelection(edit_memo.length());
+            InputMethodManager imm = (InputMethodManager)
+                    this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(this.edit_memo, InputMethodManager.SHOW_FORCED);
+            imm.showSoftInputFromInputMethod (this.edit_memo.getApplicationWindowToken(),InputMethodManager.SHOW_FORCED);
         }
 
-        
+
         if (id == R.id.edit_complete) {
 
             finish();
