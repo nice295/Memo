@@ -94,8 +94,7 @@ public  class NewMemoActivity extends AppCompatActivity {
 
         //khlee: define views from dialog
         final EditText memoname = (EditText) dialogView.findViewById(R.id.memoname);
-        final EditText memodesc = (EditText) dialogView.findViewById(R.id.memodesc);
-
+       
         dialogBuilder.setTitle(getString(R.string.save));
         dialogBuilder.setMessage(getString(R.string.finish_memo));
         //dialogBuilder.setMessage("");
@@ -105,7 +104,7 @@ public  class NewMemoActivity extends AppCompatActivity {
 
                 // khlee: Get title from dialog
                 String title = memoname.getText().toString();
-                String tag = memodesc.getText().toString();
+
 
                 // khlee: Save new memo into database
                 LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
