@@ -76,7 +76,8 @@ public class DescActivity extends AppCompatActivity {
 
 
         if (id == R.id.edit_complete) {
-
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(edit_memo.getWindowToken(), 0);
             finish();
 
         }

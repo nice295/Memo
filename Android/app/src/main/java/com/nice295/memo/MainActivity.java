@@ -127,7 +127,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main));
         */
         mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
-        recyclerView.setAdapter(mAdapter);
+       recyclerView.setAdapter(mAdapter);
+
+        //mAdapter.notifyDataSetChanged();
     }
 
 
@@ -135,14 +137,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
+        items.clear(); //jaewoo
         LinkedList<Recycler_item> database = Paper.book().read(Constants.MEMOS, new LinkedList());
+
         Log.d(TAG, "Memo size: " + database.size());
         for (int idx = 0; idx < database.size(); idx++) {
             Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
             items.add( database.get(idx) );
         }
 
-        mAdapter.notifyDataSetChanged();
+       mAdapter.notifyDataSetChanged();
     }
 
     // Menu icons are inflated just as they were with actionbar

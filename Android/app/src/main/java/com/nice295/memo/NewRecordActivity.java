@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import io.paperdb.Paper;
 
 public class NewRecordActivity extends AppCompatActivity {
 
@@ -168,7 +172,7 @@ public class NewRecordActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.record_complete, null);
         dialogBuilder.setView(dialogView);
-
+        final EditText memoname = (EditText) dialogView.findViewById(R.id.Title);
         dialogBuilder.setTitle(getString(R.string.save));
         dialogBuilder.setMessage(getString(R.string.finish_record));
         //dialogBuilder.setMessage("");
@@ -176,6 +180,16 @@ public class NewRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
+                String title = memoname.getText().toString();
+
+
+                // khlee: Save new memo into database
+
+                LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
+                memos.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, ""));
+                Paper.book().write(Constants.MEMOS, memos);
+
+                finish();
             }
         });
         dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
