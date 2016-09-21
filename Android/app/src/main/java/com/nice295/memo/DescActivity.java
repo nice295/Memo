@@ -67,6 +67,7 @@ public class DescActivity extends AppCompatActivity {
             edit_memo.requestFocus();
         }
 
+        
         if (id == R.id.edit_complete) {
 
             finish();
