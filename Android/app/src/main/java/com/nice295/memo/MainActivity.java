@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()== R.id.miProfile) { //khlee: for debugging
-            Paper.book().destroy();
+            //Paper.book().destroy();
             mAdapter.notifyDataSetChanged();
         }
 
