@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
         recyclerView.setAdapter(mAdapter);
 
+
         //mAdapter.notifyDataSetChanged();
     }
 
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int idx = 0; idx < database.size(); idx++) {
             Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
             items.add( database.get(idx) );
+
         }
 
         mAdapter.notifyDataSetChanged();
