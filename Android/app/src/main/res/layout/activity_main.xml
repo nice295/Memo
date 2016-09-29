@@ -65,6 +65,25 @@
         app:background="@color/fab_color"
         android:id="@+id/fab_plus"
         app:pressedTranslationZ="12dp"/>
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="@string/title_activity_new_record"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/textView2"
+        android:layout_alignBottom="@+id/fab_newRecord"
+        android:layout_toLeftOf="@+id/fab_newRecord"
+        android:layout_toStartOf="@+id/fab_newRecord" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="@string/title_activity_new_memo"
+        android:id="@+id/textView"
+        android:layout_marginBottom="14dp"
+        android:layout_alignBottom="@+id/fab_newMemo"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 </RelativeLayout>
+

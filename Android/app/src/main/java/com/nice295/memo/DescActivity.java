@@ -17,19 +17,23 @@ import android.widget.TextView;
 public class DescActivity extends AppCompatActivity {
     private TextView desc_memo;
     private EditText edit_memo;
-    private EditText complete_edit_memo;
     private Menu mOptionsMenu;
     Menu Mmenu;
-    private MainActivity.RecyclerAdapter mAdapter;
+    private MenuItem medit_title;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_desc);
+
         edit_memo =(EditText) findViewById(R.id.desc_edit) ;
         edit_memo.setVisibility(View.GONE);
         desc_memo = (TextView) findViewById(R.id.desc_memo);
         Intent intent =getIntent();
         String desc = intent.getExtras().getString("VALUE");
+        String title = intent.getExtras().getString("VALUE_2");
+        this.setTitle(title);
         desc_memo.setText(desc);
         edit_memo.setText(desc);
 
@@ -42,7 +46,6 @@ public class DescActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit, menu);
-
         return true;
     }
     @Override
@@ -76,6 +79,7 @@ public class DescActivity extends AppCompatActivity {
 
 
         if (id == R.id.edit_complete) {
+
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(edit_memo.getWindowToken(), 0);
             finish();

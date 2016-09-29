@@ -36,7 +36,7 @@
 
         <activity
             android:name="com.nice295.memo.DescActivity"
-            android:label="저장된 메모"
+
             android:parentActivityName=".MainActivity"></activity>
 
 
