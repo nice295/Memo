@@ -27,8 +27,7 @@ import io.paperdb.Paper;
 
 public class NewRecordActivity extends AppCompatActivity {
 
-    public MediaRecorder myAudioRecorder;
-    public String outputFile = null;
+
     private boolean flag;
     private static Button button;
     private Button mButton;
