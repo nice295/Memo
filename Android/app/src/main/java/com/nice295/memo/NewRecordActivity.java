@@ -60,14 +60,9 @@ public class NewRecordActivity extends AppCompatActivity {
         mButton.setVisibility(View.GONE);
 
 
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
 
 
-        myAudioRecorder=new MediaRecorder();
-        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFile(outputFile);
+
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +71,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 formats.add("yy.MM.dd  HH:mm");
                 list.setAdapter(adapter);
 
-                myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder  = null;
+
 
 
                 Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
@@ -124,20 +117,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 mText.setVisibility(View.VISIBLE);
                 menu.findItem(R.id.actoin_complete).setVisible(true);
 
-                try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
-                }
 
-                catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
 
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
 

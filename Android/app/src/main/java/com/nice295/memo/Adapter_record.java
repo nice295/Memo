@@ -80,34 +80,7 @@ public class Adapter_record extends BaseAdapter {
         holder.play.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
 
-                //do something
-                myAudioRecorder=new MediaRecorder();
-                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                myAudioRecorder.setOutputFile(outputFile);
-                MediaPlayer m = new MediaPlayer();
-
-                try {
-                    m.setDataSource(outputFile);
-                }
-
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    m.prepare();
-                }
-
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                m.start();
-                // Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
 
                 notifyDataSetChanged();
             }
