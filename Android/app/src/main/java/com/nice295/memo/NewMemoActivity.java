@@ -125,4 +125,3 @@ public  class NewMemoActivity extends AppCompatActivity {
         b.show();
     }
 }
-

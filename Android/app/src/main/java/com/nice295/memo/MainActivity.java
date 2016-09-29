@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Recycler_item> items; //khle
     private RecyclerView recyclerView; //khlee
     private RecyclerAdapter mAdapter; //khlee
-
+    private TextView fabtext;
+    private TextView fabtext_2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Paper.init(this); //khlee
 
+        fabtext = (TextView) findViewById(R.id.textView);
+        fabtext_2 = (TextView) findViewById(R.id.textView2);
+        fabtext.setVisibility(View.GONE);
+        fabtext_2.setVisibility(View.GONE);
         fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
         fab_memo = (FloatingActionButton) findViewById(R.id.fab_newMemo);
         fab_record = (FloatingActionButton) findViewById(R.id.fab_newRecord);
@@ -65,14 +70,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 if (isOpen) {
-                    fab_record.startAnimation(fbClose);
-                    fab_memo.startAnimation(fbClose);
-                    fab_plus.startAnimation(fbAnticlockwise);
-                    fab_memo.setClickable(false);
-                    fab_record.setClickable(false);
-                    isOpen = false;
+                    Fabclose();
 
                 } else {
+                    fabtext.setVisibility(View.VISIBLE);
+                    fabtext_2.setVisibility(View.VISIBLE);
                     fab_record.startAnimation(fbOpen);
                     fab_memo.startAnimation(fbOpen);
                     fab_plus.startAnimation(fbClockwise);
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main));
         */
         mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
-       recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         //mAdapter.notifyDataSetChanged();
     }
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             items.add( database.get(idx) );
         }
 
-       mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     // Menu icons are inflated just as they were with actionbar
@@ -172,10 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == fab_memo) {
+            Fabclose();
             Intent intent = new Intent(this, NewMemoActivity.class);
             startActivity(intent);
         }
         else if (v == fab_record) {
+            Fabclose();
             Intent intent = new Intent(this, NewRecordActivity.class);
             startActivity(intent);
         }
@@ -210,9 +214,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     Intent intent =new Intent(context,DescActivity.class);
-
                     intent.putExtra("VALUE", item.getdesc());
-
+                    intent.putExtra("VALUE_2",item.getTitle());
                     startActivity(intent);
 
                     Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -241,9 +244,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void Fabclose() {
+        fab_record.startAnimation(fbClose);
+        fab_memo.startAnimation(fbClose);
+        fab_plus.startAnimation(fbAnticlockwise);
+        fab_memo.setClickable(false);
+        fab_record.setClickable(false);
+        isOpen = false;
+        fabtext.setVisibility(View.GONE);
+        fabtext_2.setVisibility(View.GONE);
+    }
     public void startMemo(View view) {
         startActivity(new Intent(this, NewMemoActivity.class));
     }
 
 }
-
