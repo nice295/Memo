@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="@string/input_ext"
+        android:hint="@string/input_text"
         android:id="@+id/editText"
         android:scrollbars="vertical"
         android:gravity="top|left"

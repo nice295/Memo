@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\fepan_000\Documents\GitHub\Memo\Android\android_Audio_Cuttermaster\src\main\shaders"/></dataSet><dataSet config="release"><source path="C:\Users\fepan_000\Documents\GitHub\Memo\Android\android_Audio_Cuttermaster\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/kyuholee/Documents/Hanium/Memo-1009/Android/android_Audio_Cuttermaster/src/main/shaders"/></dataSet><dataSet config="release"><source path="/Users/kyuholee/Documents/Hanium/Memo-1009/Android/android_Audio_Cuttermaster/src/release/shaders"/></dataSet></merger>

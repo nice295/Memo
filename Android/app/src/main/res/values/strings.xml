@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Memo</string>
+    <string name="app_name">Uni Memo</string>
     <string name="title_activity_new_memo">New Memo</string>
     <string name="title_activity_new_record">New Record</string>
     <string name="save">save</string>
@@ -7,11 +7,21 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="finish_memo">Finish memo?</string>
-    <string name="input_ext">Input new memo</string>
+    <string name="input_text">Input new memo</string>
     <string name="done">Done</string>
     <string name="edit">Edit</string>
     <string name="back_title">Notice</string>
     <string name="back_message">Do you wnat to go back main screen?</string>
     <string name="YES">Yes</string>
     <string name="CANCEL">No</string>
+    <string name="start_alone">Enjoy alone</string>
+    <string name="app_description">Help your memo more exciting.</string>
+    <string name="skip">Skip</string>
+    <string name="intro1_title">Easy memo</string>
+    <string name="intro1_desc">Create faster and edit easily</string>
+    <string name="intro2_title">Time-machine recoder</string>
+    <string name="intro2_desc">Do not worry lost memos</string>
+    <string name="intro3_title">Lockscreen memo</string>
+    <string name="intro3_desc">Show your memos with lockscreen</string>
+    <string name="tbd">Under developing</string>
 </resources>

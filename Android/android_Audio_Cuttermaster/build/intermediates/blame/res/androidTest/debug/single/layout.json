@@ -1,6 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\fepan_000\\Documents\\GitHub\\Memo\\Android\\android_Audio_Cuttermaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
-        "source": "C:\\Users\\fepan_000\\Documents\\GitHub\\Memo\\Android\\android_Audio_Cuttermaster\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
+        "merged": "/Users/kyuholee/Documents/Hanium/Memo-1009/Android/android_Audio_Cuttermaster/build/intermediates/res/merged/androidTest/debug/layout/activity_main.xml",
+        "source": "/Users/kyuholee/Documents/Hanium/Memo-1009/Android/android_Audio_Cuttermaster/build/intermediates/bundles/debug/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/kyuholee/Documents/Hanium/Memo-1009/Android/C:\\Users\\fepan_000\\Documents\\GitHub\\Memo\\Android\\android_Audio_Cuttermaster\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_main.xml",
+        "source": "/Users/kyuholee/Documents/Hanium/Memo-1009/Android/C:\\Users\\fepan_000\\Documents\\GitHub\\Memo\\Android\\android_Audio_Cuttermaster\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_main.xml"
     }
 ]

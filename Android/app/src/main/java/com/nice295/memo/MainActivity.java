@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
+//mport com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+    //khlee, private GoogleApiClient client;
 
     FloatingActionButton fab_plus, fab_memo, fab_record;
     Animation fbOpen, fbClose, fbClockwise, fbAnticlockwise;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerAdapter mAdapter; //khlee
     private TextView fabtext;
     private TextView fabtext_2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "Memo size: " + database.size());
         for (int idx = 0; idx < database.size(); idx++) {
             Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
-            items.add( database.get(idx) );
+            items.add(database.get(idx));
 
         }
 
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()== R.id.miProfile) { //khlee: for debugging
+        if (item.getItemId() == R.id.miProfile) { //khlee: for debugging
             //Paper.book().destroy();
             mAdapter.notifyDataSetChanged();
         }
@@ -179,8 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Fabclose();
             Intent intent = new Intent(this, NewMemoActivity.class);
             startActivity(intent);
-        }
-        else if (v == fab_record) {
+        } else if (v == fab_record) {
             Fabclose();
             Intent intent = new Intent(this, NewRecordActivity.class);
             startActivity(intent);
@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent =new Intent(context,DescActivity.class);
+                    Intent intent = new Intent(context, DescActivity.class);
                     intent.putExtra("VALUE", item.getdesc());
-                    intent.putExtra("VALUE_2",item.getTitle());
+                    intent.putExtra("VALUE_2", item.getTitle());
                     startActivity(intent);
 
                     Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -256,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fabtext.setVisibility(View.GONE);
         fabtext_2.setVisibility(View.GONE);
     }
+
     public void startMemo(View view) {
         startActivity(new Intent(this, NewMemoActivity.class));
     }

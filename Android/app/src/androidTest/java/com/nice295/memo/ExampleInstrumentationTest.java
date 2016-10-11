@@ -24,6 +24,6 @@ public class ExampleInstrumentationTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.nice295.firebasestudy", appContext.getPackageName());
+        assertEquals("com.nice295.memo", appContext.getPackageName());
     }
 }
