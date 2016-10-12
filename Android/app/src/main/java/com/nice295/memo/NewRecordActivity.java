@@ -27,6 +27,9 @@ import io.paperdb.Paper;
 
 public class NewRecordActivity extends AppCompatActivity {
 
+    public int i=0;
+    public MediaRecorder myAudioRecorder;
+    public String outputFile= null;
 
     private boolean flag;
     private static Button button;
@@ -70,6 +73,36 @@ public class NewRecordActivity extends AppCompatActivity {
                 formats.add("yy.MM.dd  HH:mm");
                 list.setAdapter(adapter);
 
+                i++;
+
+
+                myAudioRecorder.stop();
+                myAudioRecorder.reset();
+                myAudioRecorder.release();
+                myAudioRecorder  = null;
+
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
+
+                myAudioRecorder=new MediaRecorder();
+                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                myAudioRecorder.setOutputFile(outputFile);
+
+                try {
+                    myAudioRecorder.prepare();
+                    myAudioRecorder.start();
+                }
+
+                catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
 
 
@@ -77,6 +110,14 @@ public class NewRecordActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
+
+        myAudioRecorder=new MediaRecorder();
+        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        myAudioRecorder.setOutputFile(outputFile);
 
 
     }
@@ -110,11 +151,31 @@ public class NewRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                menu.findItem(R.id.actoin_complete).setVisible(true);
                 button.setVisibility(View.GONE);
                 mButton.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(ProgressBar.VISIBLE);
                 mText.setVisibility(View.VISIBLE);
-                menu.findItem(R.id.actoin_complete).setVisible(true);
+
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
+
+
+
+                try {
+                    myAudioRecorder.prepare();
+                    myAudioRecorder.start();
+                }
+
+                catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
 
 
 
@@ -130,6 +191,7 @@ public class NewRecordActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.actoin_complete) {
             showAddDialog();
+            myAudioRecorder.release();
         }
         if (id == android.R.id.home) {
             if (System.currentTimeMillis() - lastTimeBackPressed <1500)
