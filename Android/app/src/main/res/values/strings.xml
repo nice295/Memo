@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Uni Memo</string>
+    <string name="app_name">UNI MEMO</string>
     <string name="title_activity_new_memo">New Memo</string>
     <string name="title_activity_new_record">New Record</string>
     <string name="save">save</string>
@@ -24,4 +24,6 @@
     <string name="intro3_title">Lockscreen memo</string>
     <string name="intro3_desc">Show your memos with lockscreen</string>
     <string name="tbd">Under developing</string>
+    <string name="creators">Creators</string>
+    <string name="about">About UNI MEMO</string>
 </resources>

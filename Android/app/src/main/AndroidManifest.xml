@@ -32,6 +32,10 @@
             android:name=".DescActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
             android:name=".FacebookLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullTheme">

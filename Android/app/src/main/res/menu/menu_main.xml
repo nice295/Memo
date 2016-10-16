@@ -7,4 +7,6 @@
         app:showAsAction="ifRoom|withText"
         android:title="@string/edit">
     </item>
+    <item android:title="@string/about"
+        android:id="@+id/about" />
 </menu>

@@ -211,6 +211,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Paper.book().destroy();
             mAdapter.notifyDataSetChanged();
         }
+        else if (item.getItemId() == R.id.about) { //khlee: added
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }
 
         return true;
     }
