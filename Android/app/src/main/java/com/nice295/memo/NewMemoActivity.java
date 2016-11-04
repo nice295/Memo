@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 import io.paperdb.Paper;
@@ -109,7 +111,7 @@ public  class NewMemoActivity extends AppCompatActivity {
                 // khlee: Save new memo into database
 
                 LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                memos.add(new Recycler_item(R.drawable.ic_mode_edit_black_24dp, title, mEtMemo.getText().toString()));
+                memos.add(new Recycler_item(R.drawable.ic_mode_edit_black_24dp, title, mEtMemo.getText().toString(),DATE()));
                 Paper.book().write(Constants.MEMOS, memos);
 
                 finish();
@@ -124,4 +126,12 @@ public  class NewMemoActivity extends AppCompatActivity {
         AlertDialog b = dialogBuilder.create();
         b.show();
     }
+    public String DATE(){
+        long now = System.currentTimeMillis();
+        java.util.Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strNow = sdfNow.format(date);
+        return strNow;
+    }
+
 }
