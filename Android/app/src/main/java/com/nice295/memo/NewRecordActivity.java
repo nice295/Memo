@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 import io.paperdb.Paper;
@@ -227,7 +229,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 // khlee: Save new memo into database
 
                 LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                memos.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, ""));
+                memos.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "",DATE()));
                 Paper.book().write(Constants.MEMOS, memos);
 
                 finish();
@@ -240,5 +242,12 @@ public class NewRecordActivity extends AppCompatActivity {
 
         AlertDialog b = dialogBuilder.create();
         b.show();
+    }
+    public String DATE(){
+        long now = System.currentTimeMillis();
+        java.util.Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strNow = sdfNow.format(date);
+        return strNow;
     }
 }

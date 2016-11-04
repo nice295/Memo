@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             holder.image.setBackground(drawable);
             holder.title.setText(item.getTitle());
             holder.desc.setText(item.getdesc());
+            holder.time.setText(item.getDate());
             holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -284,12 +285,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView title;
             TextView desc;
             CardView cardview;
+            TextView time;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 image = (ImageView) itemView.findViewById(R.id.item_image);
                 title = (TextView) itemView.findViewById(R.id.item_title);
                 desc = (TextView) itemView.findViewById(R.id.item_desc);
+                time = (TextView) itemView.findViewById(R.id.item_time);
                 cardview = (CardView) itemView.findViewById(R.id.cardview);
             }
         }

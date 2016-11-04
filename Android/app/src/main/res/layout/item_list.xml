@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/item_title"
-                android:layout_width="match_parent"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:textColor="#696969"
@@ -30,12 +30,13 @@
                 android:text="title" />
 
             <TextView
-                android:id="@+id/item_desc"
+                android:id="@+id/item_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:layout_marginLeft="25dp"
-                android:text="description"
+                android:textSize="11sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="250dp"
                 android:layout_below="@+id/item_title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -50,6 +51,17 @@
                 android:layout_gravity="right"
                 android:layout_marginRight="16dp"
                 android:padding="20dp" />
+
+            <TextView
+                android:id="@+id/item_desc"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="description"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/item_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
