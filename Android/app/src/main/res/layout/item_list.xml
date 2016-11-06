@@ -27,19 +27,9 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:hint="제목없음"
-                android:text="title" />
-
-            <TextView
-                android:id="@+id/item_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textSize="11sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="250dp"
-                android:layout_below="@+id/item_title"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:text="title"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"/>
 
             <ImageView
                 android:id="@+id/item_image"
@@ -62,6 +52,16 @@
                 android:layout_below="@+id/item_title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="11sp"
+                android:layout_below="@+id/item_image"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 

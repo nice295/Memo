@@ -5,9 +5,7 @@ package com.nice295.memo;
  */
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,10 +22,10 @@ import java.util.List;
 public class Adapter_record extends BaseAdapter {
     private String outputFile = null;
     private MediaRecorder myAudioRecorder;
-    List<String> formats;
+    List<Record_item> _formats;
     LayoutInflater inflater;
-
-
+    int _layout;
+    private Context _Context;
 
     public class Holder{
 
@@ -37,20 +34,23 @@ public class Adapter_record extends BaseAdapter {
         ImageButton play;
     }
 
-    public Adapter_record(Context context,List<String> formats) {
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
-        this.formats = formats;
+    public Adapter_record(NewRecordActivity context, int layout, List<Record_item> formats) {
 
+       // this.formats = formats;
+         _Context= context;
+        _layout = layout;
+        _formats = formats;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
     }
 
     @Override
     public int getCount() {
-        return formats.size();
+        return _formats.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return formats.get(position);
+        return _formats.get(position);
     }
 
     @Override
@@ -72,8 +72,9 @@ public class Adapter_record extends BaseAdapter {
         }else {
             holder = (Holder) convertView.getTag();
         }
+        Record_item Re_item = _formats.get(position);
 
-        holder.date.setText("    녹음");
+        holder.date.setText(Re_item.getDate());
 
 
 
@@ -90,7 +91,7 @@ public class Adapter_record extends BaseAdapter {
             public void onClick(View v) {
 
 
-                formats.remove(position); //or some other task
+                _formats.remove(position); //or some other task
                 notifyDataSetChanged();
             }
         });

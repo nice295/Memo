@@ -44,12 +44,12 @@ public class NewRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_record);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ArrayList<Record_item> formats = new ArrayList<Record_item>();
+       // formats = getData();
+        final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record,formats);
 
-        final ArrayList<String> formats = new ArrayList<String>();
-        final Adapter_record adapter = new Adapter_record(this, formats);
 
 
         mText = (TextView) findViewById(R.id.recording);
@@ -64,18 +64,20 @@ public class NewRecordActivity extends AppCompatActivity {
         mButton.setVisibility(View.GONE);
 
 
-
-
-
-
+        final ArrayList<Record_item> finalFormats = formats;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final ListView list = (ListView) findViewById(R.id.list);
-                formats.add("yy.MM.dd  HH:mm");
+                ArrayList<Record_item> formats = new ArrayList<Record_item>();
+
+
+                Record_item li = new Record_item(i,DATE());
+                finalFormats.add(li);
                 list.setAdapter(adapter);
 
-                i++;
+
 
 
                 myAudioRecorder.stop();
@@ -243,6 +245,15 @@ public class NewRecordActivity extends AppCompatActivity {
         AlertDialog b = dialogBuilder.create();
         b.show();
     }
+    public ArrayList<Record_item> getData() {
+        ArrayList<Record_item> formats = new ArrayList<Record_item>();
+
+
+            Record_item li = new Record_item(i,DATE());
+            formats.add(li);
+            return formats;
+
+    }
     public String DATE(){
         long now = System.currentTimeMillis();
         java.util.Date date = new Date(now);
@@ -250,4 +261,5 @@ public class NewRecordActivity extends AppCompatActivity {
         String strNow = sdfNow.format(date);
         return strNow;
     }
-}
+
+    }
