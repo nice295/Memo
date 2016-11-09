@@ -25,13 +25,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//mport com.google.android.gms.common.api.GoogleApiClient;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import io.paperdb.Paper;
+
+//mport com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mAdapter.notifyDataSetChanged();
-    }
+}
 
     // Menu icons are inflated just as they were with actionbar
     @Override
@@ -241,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<Recycler_item> items;
         int item_layout;
 
+
         public RecyclerAdapter(Context context, List<Recycler_item> items, int item_layout) {
             this.context = context;
             this.items = items;
@@ -255,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             final Recycler_item item = items.get(position);
             Drawable drawable = context.getResources().getDrawable(item.getImage());
             holder.image.setBackground(drawable);
@@ -273,6 +276,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
+            holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("CLICK", "OnLongClickListener");
+
+
+                    items.remove(position);
+                    mAdapter.notifyItemRemoved(position);
+                    mAdapter.notifyItemRangeChanged(position,items.size());
+                    mAdapter.notifyDataSetChanged();
+                    LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
+                    memos.remove(position);
+                    Paper.book().write(Constants.MEMOS, memos);
+
+
+                    return true; // 다음 이벤트 계속 진행 false, 이벤트 완료 true
+
+                }
+            });
+
         }
 
         @Override
@@ -313,4 +336,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(this, NewMemoActivity.class));
     }
 
+    public String DATE(){
+        long now = System.currentTimeMillis();
+        java.util.Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strNow = sdfNow.format(date);
+        return strNow;
+    }
 }
