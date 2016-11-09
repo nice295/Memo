@@ -5,6 +5,8 @@ package com.nice295.memo;
  */
 
 public class Constants {
-
+    static MainActivity.RecyclerAdapter ITEM;
+    Recycler_item TT;
     public static final String MEMOS = "_memos";
+    public static int aa= ITEM.getItemCount();
 }
