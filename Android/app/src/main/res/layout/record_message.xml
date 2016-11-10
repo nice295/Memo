@@ -24,16 +24,5 @@
         android:scaleY="1"
         android:src="@drawable/ic_clear_black_24dp"
         />
-    <ImageButton
-        android:id="@+id/play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"
-        android:background="#D7D7D7"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/ic_play_circle_outline_black_24dp"
-        />
+
 </RelativeLayout>

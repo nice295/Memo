@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -40,6 +41,8 @@ public class NewRecordActivity extends AppCompatActivity {
     private ImageButton mdelete;
     private TextView mText;
     private long lastTimeBackPressed;
+    private Runnable mRunnable;
+    private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,29 +65,29 @@ public class NewRecordActivity extends AppCompatActivity {
 
         mText.setVisibility(View.GONE);
         mButton.setVisibility(View.GONE);
-
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mButton.setEnabled(true);
+            }
+        };
 
         final ArrayList<Record_item> finalFormats = formats;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
                 final ListView list = (ListView) findViewById(R.id.list);
                 ArrayList<Record_item> formats = new ArrayList<Record_item>();
-
-
-                Record_item li = new Record_item(i,DATE());
-                finalFormats.add(li);
-                list.setAdapter(adapter);
-
-
-
-
                 myAudioRecorder.stop();
                 myAudioRecorder.reset();
                 myAudioRecorder.release();
                 myAudioRecorder  = null;
+                mButton.setEnabled(false);
+                mHandler = new Handler();
 
+                mHandler.postDelayed(mRunnable, 5000);
                 outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
 
                 myAudioRecorder=new MediaRecorder();
@@ -107,11 +110,22 @@ public class NewRecordActivity extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                
+
+
+                Record_item li = new Record_item(i,DATE());
+                finalFormats.add(li);
+                list.setAdapter(adapter);
+
+
+
+
 
 
 
                 Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
                 adapter.notifyDataSetChanged();
+
             }
         });
 
@@ -157,9 +171,17 @@ public class NewRecordActivity extends AppCompatActivity {
 
                 menu.findItem(R.id.actoin_complete).setVisible(true);
                 button.setVisibility(View.GONE);
+
+
                 mButton.setVisibility(View.VISIBLE);
+                mButton.setEnabled(false);
+                mHandler = new Handler();
+
+                mHandler.postDelayed(mRunnable, 5000);
+
                 mProgressBar.setVisibility(ProgressBar.VISIBLE);
                 mText.setVisibility(View.VISIBLE);
+
 
                 outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
 
@@ -168,6 +190,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 try {
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
+
                 }
 
                 catch (IllegalStateException e) {
@@ -187,7 +210,9 @@ public class NewRecordActivity extends AppCompatActivity {
 
             }
         });
+
         return true;
+
     }
 
     @Override

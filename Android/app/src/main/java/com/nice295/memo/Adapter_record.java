@@ -31,7 +31,7 @@ public class Adapter_record extends BaseAdapter {
 
         TextView date;
         ImageButton cancel;
-        ImageButton play;
+       // ImageButton play;
     }
 
     public Adapter_record(NewRecordActivity context, int layout, List<Record_item> formats) {
@@ -65,7 +65,7 @@ public class Adapter_record extends BaseAdapter {
             holder =new Holder();
             convertView= inflater.inflate(R.layout.record_message,null);
 
-            holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
+           // holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
             holder.date= (TextView) convertView.findViewById(R.id.item_date);
             holder.cancel = (ImageButton) convertView.findViewById(R.id.delete);
             convertView.setTag(holder);
@@ -78,14 +78,14 @@ public class Adapter_record extends BaseAdapter {
 
 
 
-        holder.play.setOnClickListener(new View.OnClickListener(){
+      /*  holder.play.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
 
                 notifyDataSetChanged();
             }
-        });
+        });*/
         holder.cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
