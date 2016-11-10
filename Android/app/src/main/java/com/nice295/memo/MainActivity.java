@@ -209,11 +209,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.miProfile) { //khlee: for debugging
+      /*  if (item.getItemId() == R.id.miProfile) { //khlee: for debugging
             //Paper.book().destroy();
             mAdapter.notifyDataSetChanged();
-        }
-        else if (item.getItemId() == R.id.about) { //khlee: added
+        }*/
+       if (item.getItemId() == R.id.about) { //khlee: added
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     items.remove(position);
                     mAdapter.notifyItemRemoved(position);
-                    mAdapter.notifyItemRangeChanged(position,items.size());
+                    mAdapter.notifyItemRangeChanged(position, items.size());
                     mAdapter.notifyDataSetChanged();
                     LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
                     memos.remove(position);

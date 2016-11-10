@@ -20,8 +20,10 @@ public class DescActivity extends AppCompatActivity {
     private Menu mOptionsMenu;
     Menu Mmenu;
     private MenuItem medit_title;
-
-
+    MainActivity.RecyclerAdapter mmadapter;
+    MainActivity.RecyclerAdapter MMM;
+    Recycler_item item;
+    MainActivity.RecyclerAdapter.ViewHolder dd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,9 @@ public class DescActivity extends AppCompatActivity {
             edit_memo.setText(temp);
            desc_memo.toString();*/
             edit_memo.requestFocus();
+
+           String edit_Memo = edit_memo.getText().toString();
+            dd.desc.setText(edit_Memo);
             edit_memo.setSelection(edit_memo.length());
             InputMethodManager imm = (InputMethodManager)
                     this.getSystemService(Context.INPUT_METHOD_SERVICE);
