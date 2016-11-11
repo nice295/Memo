@@ -26,4 +26,5 @@
     <string name="tbd">Under developing</string>
     <string name="creators">Creators</string>
     <string name="about">About UNI MEMO</string>
+    <string name="edit_complete">Do you want to finish editing?</string>
 </resources>

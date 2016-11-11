@@ -26,4 +26,5 @@
     <string name="tbd">개발 중입니다.</string>
     <string name="creators">만든 사람들</string>
     <string name="about">UNI 메모에 대해서</string>
+    <string name="edit_complete">수정을 완료하시겠습니까?</string>
 </resources>
