@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-
-
     private List<Recycler_item> items; //khle
     private RecyclerView recyclerView; //khlee
     private RecyclerAdapter mAdapter; //khlee
@@ -244,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int item_layout;
 
 
+
         public RecyclerAdapter(Context context, List<Recycler_item> items, int item_layout) {
             this.context = context;
             this.items = items;
@@ -260,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             final Recycler_item item = items.get(position);
+
+
             Drawable drawable = context.getResources().getDrawable(item.getImage());
             holder.image.setBackground(drawable);
             holder.title.setText(item.getTitle());
@@ -280,23 +281,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public boolean onLongClick(View v) {
                     Log.d("CLICK", "OnLongClickListener");
-
-
-                    items.remove(position);
-                    mAdapter.notifyItemRemoved(position);
-                    mAdapter.notifyItemRangeChanged(position, items.size());
-                    mAdapter.notifyDataSetChanged();
-                    LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                    memos.remove(position);
-                    Paper.book().write(Constants.MEMOS, memos);
-
-
+                    removal();
                     return true; // 다음 이벤트 계속 진행 false, 이벤트 완료 true
 
+
+
                 }
+
+                public void removal() {
+                items.remove(position);
+                mAdapter.notifyItemRemoved(position);
+                mAdapter.notifyItemRangeChanged(position, items.size());
+                mAdapter.notifyDataSetChanged();
+                LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
+                memos.remove(position);
+                Paper.book().write(Constants.MEMOS, memos);
+
+            }
             });
 
         }
+
 
         @Override
         public int getItemCount() {
@@ -343,4 +348,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String strNow = sdfNow.format(date);
         return strNow;
     }
+
 }

@@ -110,7 +110,7 @@ public class NewRecordActivity extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                
+
 
 
                 Record_item li = new Record_item(i,DATE());

@@ -8,7 +8,7 @@ public class Recycler_item {
     String title;
     String desc;
     String DATE;
-    private String profileName;//11-09
+
     int getImage(){
         return this.image;
     }
