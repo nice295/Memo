@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     private List<Recycler_item> items; //khle
     private RecyclerView recyclerView; //khlee
     private RecyclerAdapter mAdapter; //khlee
@@ -61,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Paper.init(this); //khlee
 
+        Paper.init(this); //khlee
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);

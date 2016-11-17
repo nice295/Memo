@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import io.paperdb.Paper;
 public class NewRecordActivity extends AppCompatActivity {
 
     public int i=0;
-    public MediaRecorder myAudioRecorder;
+    public MediaRecorder myAudioRecorder=null;
     public String outputFile= null;
 
     private boolean flag;
@@ -43,14 +44,15 @@ public class NewRecordActivity extends AppCompatActivity {
     private long lastTimeBackPressed;
     private Runnable mRunnable;
     private Handler mHandler;
+
+    private  Toast rToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_record);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ArrayList<Record_item> formats = new ArrayList<Record_item>();
-       // formats = getData();
+        // formats = getData();
         final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record,formats);
 
 
@@ -80,62 +82,50 @@ public class NewRecordActivity extends AppCompatActivity {
 
                 final ListView list = (ListView) findViewById(R.id.list);
                 ArrayList<Record_item> formats = new ArrayList<Record_item>();
-                myAudioRecorder.stop();
-                myAudioRecorder.reset();
-                myAudioRecorder.release();
-                myAudioRecorder  = null;
                 mButton.setEnabled(false);
                 mHandler = new Handler();
 
-                mHandler.postDelayed(mRunnable, 5000);
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
-
-                myAudioRecorder=new MediaRecorder();
-                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                myAudioRecorder.setOutputFile(outputFile);
-
-                try {
+                if(myAudioRecorder != null){
+                    rToast=Toast.makeText(getApplicationContext(),"Success recording, file saved",Toast.LENGTH_LONG);
+                    rToast.show();
+                    myAudioRecorder.stop();
+                    myAudioRecorder.reset();
+                    myAudioRecorder.release();
+                    myAudioRecorder =null;
+                }
+                String fileName = DATE()+".3gp";
+                try{
+                    File SDCardpath = Environment.getExternalStorageDirectory();
+                    File myDataPath = new File(SDCardpath.getAbsolutePath()+"/Unimemo/"+DATE());
+                    if(!myDataPath.exists())
+                        myDataPath.mkdirs();
+                    File recodeFile = new File(SDCardpath.getAbsolutePath()+"/Unimemo/"+DATE()+"/"+fileName);
+                    myAudioRecorder = new MediaRecorder();
+                    myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
+                    myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                    myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
-                }
 
-                catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                    rToast.show();
 
+                }
                 catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
+                mHandler.postDelayed(mRunnable, 5000);
 
 
                 Record_item li = new Record_item(i,DATE());
                 finalFormats.add(li);
                 list.setAdapter(adapter);
-
-
-
-
-
-
-
-                Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
                 adapter.notifyDataSetChanged();
 
             }
         });
 
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
-
-        myAudioRecorder=new MediaRecorder();
-        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFile(outputFile);
 
 
     }
@@ -171,7 +161,28 @@ public class NewRecordActivity extends AppCompatActivity {
 
                 menu.findItem(R.id.actoin_complete).setVisible(true);
                 button.setVisibility(View.GONE);
+                String fileName = DATE()+".3gp";
+                try{
+                    File SDCardpath = Environment.getExternalStorageDirectory();
+                    File myDataPath = new File(SDCardpath.getAbsolutePath()+"/Unimemo/"+DATE());
+                    if(!myDataPath.exists())
+                        myDataPath.mkdirs();
+                    File recodeFile = new File(SDCardpath.getAbsolutePath()+"/Unimemo/"+DATE()+"/"+fileName);
+                    myAudioRecorder = new MediaRecorder();
+                    myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                    myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                    myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
+                    myAudioRecorder.prepare();
+                    myAudioRecorder.start();
 
+                    rToast=Toast.makeText(getApplicationContext(),"Start recording",Toast.LENGTH_LONG);
+                    rToast.show();
+
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 mButton.setVisibility(View.VISIBLE);
                 mButton.setEnabled(false);
@@ -181,32 +192,6 @@ public class NewRecordActivity extends AppCompatActivity {
 
                 mProgressBar.setVisibility(ProgressBar.VISIBLE);
                 mText.setVisibility(View.VISIBLE);
-
-
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording" + i +".3gp";
-
-
-
-                try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
-
-                }
-
-                catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-
-
-
-                Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -219,8 +204,10 @@ public class NewRecordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.actoin_complete) {
-            showAddDialog();
+           // myAudioRecorder.stop();
             myAudioRecorder.release();
+
+            showAddDialog();
         }
         if (id == android.R.id.home) {
             if (System.currentTimeMillis() - lastTimeBackPressed <1500)
@@ -274,11 +261,42 @@ public class NewRecordActivity extends AppCompatActivity {
         ArrayList<Record_item> formats = new ArrayList<Record_item>();
 
 
-            Record_item li = new Record_item(i,DATE());
-            formats.add(li);
-            return formats;
+        Record_item li = new Record_item(i,DATE());
+        formats.add(li);
+        return formats;
 
     }
+/*
+    public synchronized String GetFilePath(int fileType, int fileId)
+    {
+        outputFile = Environment.getExternalStorageState();
+        File file = null;
+
+        if ( !outputFile.equals(Environment.MEDIA_MOUNTED))
+        {
+            // SD카드가 마운트되어있지 않음
+            file = Environment.getRootDirectory();
+        }
+        else
+        {
+            // SD카드가 마운트되어있음
+            file = Environment.getExternalStorageDirectory();
+        }
+
+
+        String dir = file.getAbsolutePath() + String.format("/Unimemo/file_%02d", fileType);
+        String path = file.getAbsolutePath() + String.format("/Unimemo/file_%02d/"+DATE()+".mp4", fileType, fileId);
+
+                file = new File(dir);
+        if ( !file.exists() )
+        {
+            // 디렉토리가 존재하지 않으면 디렉토리 생성
+            file.mkdirs();
+        }
+
+        // 파일 경로 반환
+        return path;
+    }*/
     public String DATE(){
         long now = System.currentTimeMillis();
         java.util.Date date = new Date(now);
@@ -287,4 +305,7 @@ public class NewRecordActivity extends AppCompatActivity {
         return strNow;
     }
 
-    }
+
+
+
+}
