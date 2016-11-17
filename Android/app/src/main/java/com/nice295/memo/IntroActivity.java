@@ -17,16 +17,16 @@ public class IntroActivity extends AppIntro {
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro1_title), getString(R.string.intro1_desc),
                 R.drawable.intro1,
-               // Color.parseColor("#F06292")));
-                Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
+                Color.parseColor("#F06292")));
+               // Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro2_title), getString(R.string.intro2_desc),
                 R.drawable.intro2,
-                //Color.parseColor("#BA68C8")));
-                Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
+                Color.parseColor("#BA68C8")));
+                //Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
         addSlide(AppIntroFragment.newInstance(getString(R.string.intro3_title), getString(R.string.intro3_desc),
                 R.drawable.intro3,
-                //Color.parseColor("#9575CD")));
-                Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
+                Color.parseColor("#9575CD")));
+               // Color.parseColor("#ffffff"), getColor(R.color.colorPrimary), getColor(R.color.colorPrimaryDark)));
 
         setSkipTextTypeface(getResources().getString(R.string.skip));
         setColorSkipButton(Color.parseColor("#000000"));
