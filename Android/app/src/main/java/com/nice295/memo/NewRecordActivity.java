@@ -242,9 +242,9 @@ public class NewRecordActivity extends AppCompatActivity {
 
                 // khlee: Save new memo into database
 
-                LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                memos.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "",DATE()));
-                Paper.book().write(Constants.MEMOS, memos);
+                LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
+                records.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "",DATE()));
+                Paper.book().write(Constants.RECORD, records);
 
                 finish();
             }
