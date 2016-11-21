@@ -31,12 +31,8 @@ public class DescActivity extends AppCompatActivity {
     private Menu mOptionsMenu;
     Menu Mmenu;
     private MenuItem medit_title;
-    MainActivity.RecyclerAdapter MMM;
-    Recycler_item item;
-    MainActivity hhh;
 
     private Context mContext = null;
-    MainActivity.RecyclerAdapter.ViewHolder dd;
 
 
     @Override

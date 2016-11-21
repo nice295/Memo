@@ -25,15 +25,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
+//mport com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import io.paperdb.Paper;
-
-//mport com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -49,9 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+
     private List<Recycler_item> items; //khle
-    private RecyclerView recyclerView; //khlee
-    private RecyclerAdapter mAdapter; //khlee
+    private TabFragment1.MrecyclerAdapter mAdapter; //khlee
     private TextView fabtext;
     private TextView fabtext_2;
 
@@ -60,8 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Paper.init(this); //khlee
+
+        items = new ArrayList<>();
+
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -133,14 +134,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab_record.setOnClickListener(this);
         fab_memo.setOnClickListener(this);
 
-        //RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view); //khlee
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
 
-        //List<Recycler_item> items = new ArrayList<>();
-        items = new ArrayList<>(); //khlee
+
+
 
         /* khlee: Increase test count as 20
         Recycler_item[] item = new Recycler_item[5];
@@ -171,8 +167,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main));
         */
-        mAdapter = new RecyclerAdapter(getApplicationContext(), items, R.layout.activity_main);
-        recyclerView.setAdapter(mAdapter);
 
 
         //mAdapter.notifyDataSetChanged();
@@ -183,18 +177,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
-        items.clear(); //jaewoo
-        LinkedList<Recycler_item> database = Paper.book().read(Constants.MEMOS, new LinkedList());
 
-        Log.d(TAG, "Memo size: " + database.size());
-        for (int idx = 0; idx < database.size(); idx++) {
-            Log.d(TAG, "Memo: " + database.get(idx).getTitle() + ", " + database.get(idx).getdesc());
-            items.add(database.get(idx));
 
-        }
-
-        mAdapter.notifyDataSetChanged();
-}
+    }
 
     // Menu icons are inflated just as they were with actionbar
     @Override
@@ -206,11 +191,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      /*  if (item.getItemId() == R.id.miProfile) { //khlee: for debugging
+        /*if (item.getItemId() == R.id.miProfile) { //khlee: for debugging
             //Paper.book().destroy();
             mAdapter.notifyDataSetChanged();
         }*/
-       if (item.getItemId() == R.id.about) { //khlee: added
+        if (item.getItemId() == R.id.about) { //khlee: added
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
@@ -235,95 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-        Context context;
-        List<Recycler_item> items;
-        int item_layout;
 
-
-
-        public RecyclerAdapter(Context context, List<Recycler_item> items, int item_layout) {
-            this.context = context;
-            this.items = items;
-            this.item_layout = item_layout;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null);
-            return new ViewHolder(v);
-        }
-
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-        @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
-            final Recycler_item item = items.get(position);
-
-
-            Drawable drawable = context.getResources().getDrawable(item.getImage());
-            holder.image.setBackground(drawable);
-            holder.title.setText(item.getTitle());
-            holder.desc.setText(item.getdesc());
-            holder.time.setText(item.getDate());
-            holder.cardview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, DescActivity.class);
-                    intent.putExtra("VALUE", item.getdesc());
-                    intent.putExtra("VALUE_2", item.getTitle());
-                    startActivity(intent);
-
-                    Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Log.d("CLICK", "OnLongClickListener");
-                    removal();
-                    return true; // 다음 이벤트 계속 진행 false, 이벤트 완료 true
-
-
-
-                }
-
-                public void removal() {
-                items.remove(position);
-                mAdapter.notifyItemRemoved(position);
-                mAdapter.notifyItemRangeChanged(position, items.size());
-                mAdapter.notifyDataSetChanged();
-                LinkedList memos = Paper.book().read(Constants.MEMOS, new LinkedList());
-                memos.remove(position);
-                Paper.book().write(Constants.MEMOS, memos);
-
-            }
-            });
-
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return this.items.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView image;
-            TextView title;
-            TextView desc;
-            CardView cardview;
-            TextView time;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                image = (ImageView) itemView.findViewById(R.id.item_image);
-                title = (TextView) itemView.findViewById(R.id.item_title);
-                desc = (TextView) itemView.findViewById(R.id.item_desc);
-                time = (TextView) itemView.findViewById(R.id.item_time);
-                cardview = (CardView) itemView.findViewById(R.id.cardview);
-            }
-        }
-    }
 
     private void Fabclose() {
         fab_record.startAnimation(fbClose);
@@ -338,14 +235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startMemo(View view) {
         startActivity(new Intent(this, NewMemoActivity.class));
-    }
-
-    public String DATE(){
-        long now = System.currentTimeMillis();
-        java.util.Date date = new Date(now);
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String strNow = sdfNow.format(date);
-        return strNow;
     }
 
 }
