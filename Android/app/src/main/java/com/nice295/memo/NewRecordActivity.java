@@ -7,6 +7,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,8 +36,9 @@ import io.paperdb.Paper;
 public class NewRecordActivity extends AppCompatActivity {
 
     public int i = 0;
+    int ii;
+
     public MediaRecorder myAudioRecorder = null;
-    //public String outputFile= null;
 
     private boolean flag;
     private static Button button;
@@ -48,6 +53,10 @@ public class NewRecordActivity extends AppCompatActivity {
     private Toast rToast;
     File recodeFile_2;
     boolean isRecording;
+    String title;
+    File myDataPath;
+    String folder_name;
+    File filenow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +64,7 @@ public class NewRecordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ArrayList<Record_item> formats = new ArrayList<Record_item>();
         // formats = getData();
+
         final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
         // final File edicc = Environment.getExternalStorageDirectory();
         isRecording=false;
@@ -64,8 +74,6 @@ public class NewRecordActivity extends AppCompatActivity {
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
         mdelete = (ImageButton) findViewById(R.id.delete);
         button = (Button) findViewById(R.id.button_first);
-
-
         mText.setVisibility(View.GONE);
         mButton.setVisibility(View.GONE);
         mRunnable = new Runnable() {
@@ -74,6 +82,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 mButton.setEnabled(true);
             }
         };
+
 
         final ArrayList<Record_item> finalFormats = formats;
         button.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +94,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 fileName = DATE() + ".3gp";
                 try {
                     File SDCardpath = Environment.getExternalStorageDirectory();
-
-                    File myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
+                    myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
                     if (!myDataPath.exists())
                         myDataPath.mkdirs();
                     File recodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
@@ -97,7 +105,6 @@ public class NewRecordActivity extends AppCompatActivity {
                     myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
-
                     rToast = Toast.makeText(getApplicationContext(), "Start recording", Toast.LENGTH_LONG);
                     rToast.show();
 
@@ -109,7 +116,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 mButton.setEnabled(false);
                 mHandler = new Handler();
 
-                mHandler.postDelayed(mRunnable, 5000);
+                mHandler.postDelayed(mRunnable, 1000);
 
                 mProgressBar.setVisibility(ProgressBar.VISIBLE);
                 mText.setVisibility(View.VISIBLE);
@@ -132,9 +139,10 @@ public class NewRecordActivity extends AppCompatActivity {
                         .setMessage(getString(R.string.back_message))
                         .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+
                                 if(isRecording==true){
-                                myAudioRecorder.release();
-                                removeDir("녹음");
+                                    myAudioRecorder.release();
+                                    removeDir("녹음");
                                 }
                                 finish();
                             }
@@ -183,7 +191,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 fileName = DATE() + ".3gp";
                 try {
                     File SDCardpath = Environment.getExternalStorageDirectory();
-                    File myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
+                    myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
                     if (!myDataPath.exists())
                         myDataPath.mkdirs();
                     recodeFile_2 = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
@@ -238,7 +246,7 @@ public class NewRecordActivity extends AppCompatActivity {
                 };
 */
 
-                mHandler.postDelayed(mRunnable, 5000);
+                mHandler.postDelayed(mRunnable, 1000);
 
 
                 Record_item li = new Record_item(i, DATE());
@@ -282,43 +290,94 @@ public class NewRecordActivity extends AppCompatActivity {
 
 
     private void showAddDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.DialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewRecordActivity.this);
+        builder.setIcon(android.R.drawable.ic_dialog_info);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.record_complete, null);
-        dialogBuilder.setView(dialogView);
-        final EditText memoname = (EditText) dialogView.findViewById(R.id.Title);
-        dialogBuilder.setTitle(getString(R.string.save));
-        dialogBuilder.setMessage(getString(R.string.finish_record));
-        //dialogBuilder.setMessage("");
 
-        dialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+        builder.setView(dialogView);
+        // final EditText memoname = (EditText) dialogView.findViewById(R.id.Title);
+        final EditText input = new EditText(NewRecordActivity.this);
+        builder.setTitle(getString(R.string.save));
+        builder.setMessage(getString(R.string.finish_record));
+        builder.setPositiveButton(getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        myAudioRecorder.stop();
+                        myAudioRecorder.release();
+                        myAudioRecorder = null;
+                        recodeFile_2.delete();
+                        title = input.getText().toString();
+                        folder_name = title;
+                        File SDCardpath = Environment.getExternalStorageDirectory();
+                        filenow = new File(SDCardpath.getAbsolutePath() + "/Unimemo/" + folder_name);
+                        // khlee: Save new memo into database
+                        if (myDataPath.renameTo(filenow)) {
+                            Toast.makeText(getApplicationContext(), "변경 성공", Toast.LENGTH_SHORT).show();
+                        } else {
+                            removeDir(folder_name);
+                            Toast.makeText(getApplicationContext(), "변경 실패", Toast.LENGTH_SHORT).show();
+                        }
+                        LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
+                        records.add(new Recycler_item( R.drawable.ic_mic_black_24dp, title, "", DATE()));
+                        Paper.book().write(Constants.RECORD, records);
+
+                        finish();
+
+                        // DO TASK
+                    }
+                });
+        builder.setNegativeButton(getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // DO TASK
+                    }
+                });
+// Set `EditText` to `dialog`. You can add `EditText` from `xml` too.
+        //final EditText input = new EditText(NewRecordActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        builder.setView(input);
+        final AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+// Initially disable the button
+        ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE)
+                .setEnabled(false);
+// OR you can use here setOnShowListener to disable button at first
+// time.
+
+// Now set the textchange listener for edittext
+        input.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
 
-                String title = memoname.getText().toString();
-                myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder = null;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
 
-                recodeFile_2.delete();
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Check if edittext is empty
+                if (TextUtils.isEmpty(s)) {
+                    // Disable ok button
+                    ((AlertDialog) dialog).getButton(
+                            AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    // Something into edit text. Enable the button.
+                    ((AlertDialog) dialog).getButton(
+                            AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
 
-                // khlee: Save new memo into database
-
-                LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
-                records.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "",DATE()));
-                Paper.book().write(Constants.RECORD, records);
-
-                finish();
             }
         });
-        dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        AlertDialog b = dialogBuilder.create();
-        b.setCanceledOnTouchOutside(false);
-        b.show();
     }
 
     public ArrayList<Record_item> getData() {
