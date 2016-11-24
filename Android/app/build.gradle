@@ -39,6 +39,7 @@ dependencies {
 
     compile 'io.paperdb:paperdb:1.5'
     compile 'com.github.paolorotolo:appintro:4.1.0'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 
     // test dependencies
     androidTestCompile('com.android.support.test:runner:0.5') {
