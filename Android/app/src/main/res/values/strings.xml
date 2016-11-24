@@ -3,7 +3,7 @@
     <string name="title_activity_new_memo">New Memo</string>
     <string name="title_activity_new_record">New Record</string>
     <string name="save">save</string>
-    <string name="finish_record">Finish recoding?</string>
+    <string name="finish_record">If you want save your record files,You would write Title</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="finish_memo">Finish memo?</string>

@@ -3,7 +3,7 @@
     <string name="title_activity_new_memo">새 메모</string>
     <string name="title_activity_new_record">새 녹음</string>
     <string name="save">저장</string>
-    <string name="finish_record">녹음을 끝내시겠습니까?</string>
+    <string name="finish_record">녹음을 저장하시려면 제목을 써주세요</string>
     <string name="yes">추가</string>
     <string name="cancel">취소</string>
     <string name="finish_memo">메모를 마치시겠습니까?</string>
