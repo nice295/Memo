@@ -2,7 +2,6 @@ package com.nice295.memo;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -136,12 +134,12 @@ public class TabFragment2 extends Fragment {
             holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context ,DescActivity.class);
+                    /*Intent intent = new Intent(context ,DescActivity.class);
                     intent.putExtra("VALUE", item.getdesc());
                     intent.putExtra("VALUE_2", item.getTitle());
                     context.startActivity(intent);
 
-                    Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();*/
                 }
             });
             holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
@@ -184,7 +182,6 @@ public class TabFragment2 extends Fragment {
 
 
     }
-
 
 
 

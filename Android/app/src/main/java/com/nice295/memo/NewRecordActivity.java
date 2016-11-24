@@ -47,6 +47,7 @@ public class NewRecordActivity extends AppCompatActivity {
     String fileName;
     private Toast rToast;
     File recodeFile_2;
+    boolean isRecording;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class NewRecordActivity extends AppCompatActivity {
         // formats = getData();
         final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
         // final File edicc = Environment.getExternalStorageDirectory();
-
+        isRecording=false;
         mText = (TextView) findViewById(R.id.recording);
         mButton = (Button) findViewById(R.id.button);
         mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
@@ -75,10 +76,89 @@ public class NewRecordActivity extends AppCompatActivity {
         };
 
         final ArrayList<Record_item> finalFormats = formats;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isRecording=true;
+                //menu.findItem(R.id.actoin_complete).setVisible(true);
+                button.setVisibility(View.GONE);
+                fileName = DATE() + ".3gp";
+                try {
+                    File SDCardpath = Environment.getExternalStorageDirectory();
+
+                    File myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
+                    if (!myDataPath.exists())
+                        myDataPath.mkdirs();
+                    File recodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
+                    myAudioRecorder = new MediaRecorder();
+                    myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                    myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                    myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
+                    myAudioRecorder.prepare();
+                    myAudioRecorder.start();
+
+                    rToast = Toast.makeText(getApplicationContext(), "Start recording", Toast.LENGTH_LONG);
+                    rToast.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                mButton.setVisibility(View.VISIBLE);
+                mButton.setEnabled(false);
+                mHandler = new Handler();
+
+                mHandler.postDelayed(mRunnable, 5000);
+
+                mProgressBar.setVisibility(ProgressBar.VISIBLE);
+                mText.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
+
+    }
+
+
+    //20160826 jaewoo
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.back_title))
+                        .setMessage(getString(R.string.back_message))
+                        .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if(isRecording==true){
+                                myAudioRecorder.release();
+                                removeDir("녹음");
+                                }
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.CANCEL), null).show();
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_record, menu);
+        menu.findItem(R.id.actoin_complete).setVisible(false);
+        ArrayList<Record_item> formats = new ArrayList<Record_item>();
+        // formats = getData();
+        final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
+        // final File edicc = Environment.getExternalStorageDirectory();
+        final ArrayList<Record_item> finalFormats = formats;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                menu.findItem(R.id.actoin_complete).setVisible(true);
 
                 final ListView list = (ListView) findViewById(R.id.list);
                 ArrayList<Record_item> formats = new ArrayList<Record_item>();
@@ -169,76 +249,6 @@ public class NewRecordActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-
-    //20160826 jaewoo
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                new AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.back_title))
-                        .setMessage(getString(R.string.back_message))
-                        .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                myAudioRecorder.release();
-                                removeDir("녹음");
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(getString(R.string.CANCEL), null).show();
-                return false;
-            default:
-                return false;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_record, menu);
-        menu.findItem(R.id.actoin_complete).setVisible(false);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                menu.findItem(R.id.actoin_complete).setVisible(true);
-                button.setVisibility(View.GONE);
-                fileName = DATE() + ".3gp";
-                try {
-                    File SDCardpath = Environment.getExternalStorageDirectory();
-
-                    File myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
-                    if (!myDataPath.exists())
-                        myDataPath.mkdirs();
-                    File recodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
-                    myAudioRecorder = new MediaRecorder();
-                    myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                    myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
-
-                    rToast = Toast.makeText(getApplicationContext(), "Start recording", Toast.LENGTH_LONG);
-                    rToast.show();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                mButton.setVisibility(View.VISIBLE);
-                mButton.setEnabled(false);
-                mHandler = new Handler();
-
-                mHandler.postDelayed(mRunnable, 5000);
-
-                mProgressBar.setVisibility(ProgressBar.VISIBLE);
-                mText.setVisibility(View.VISIBLE);
-
-            }
-        });
-
         return true;
 
     }
@@ -248,20 +258,17 @@ public class NewRecordActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.actoin_complete) {
 
-            // myAudioRecorder.stop();
-            myAudioRecorder.release();
-            myAudioRecorder = null;
 
-            recodeFile_2.delete();
-            // recodeFile.delete();
 
 
             showAddDialog();
         }
         if (id == android.R.id.home) {
             if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
-                myAudioRecorder.release();
-                removeDir("녹음");
+                if(isRecording==true) {
+                    myAudioRecorder.release();
+                    removeDir("녹음");
+                }
                 finish();
 
             }
@@ -283,12 +290,17 @@ public class NewRecordActivity extends AppCompatActivity {
         dialogBuilder.setTitle(getString(R.string.save));
         dialogBuilder.setMessage(getString(R.string.finish_record));
         //dialogBuilder.setMessage("");
+
         dialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String title = memoname.getText().toString();
+                myAudioRecorder.stop();
+                myAudioRecorder.release();
+                myAudioRecorder = null;
 
+                recodeFile_2.delete();
 
                 // khlee: Save new memo into database
 
@@ -305,6 +317,7 @@ public class NewRecordActivity extends AppCompatActivity {
         });
 
         AlertDialog b = dialogBuilder.create();
+        b.setCanceledOnTouchOutside(false);
         b.show();
     }
 
