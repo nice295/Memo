@@ -2,6 +2,7 @@ package com.nice295.memo;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -140,6 +141,9 @@ public class TabFragment2 extends Fragment {
                     context.startActivity(intent);
 
                     Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();*/
+
+                    Intent intent = new Intent(context, DescRecordActivity.class);
+                    context.startActivity(intent);
                 }
             });
             holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
@@ -147,6 +151,7 @@ public class TabFragment2 extends Fragment {
                 public boolean onLongClick(View v) {
                     Log.d("CLICK", "OnLongClickListener");
                     removal();
+
                     return true; // 다음 이벤트 계속 진행 false, 이벤트 완료 true
 
 

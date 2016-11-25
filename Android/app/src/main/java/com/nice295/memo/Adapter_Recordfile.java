@@ -1,10 +1,7 @@
 package com.nice295.memo;
 
-/**
- * Created by PJH on 2016-08-06.
- */
-
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaRecorder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,44 +10,48 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.util.List;
 
 /**
- * Created by PJH on 2016-08-05.
+ * Created by fepan_000 on 2016-11-25.
  */
 
-public class Adapter_record extends BaseAdapter {
+public class Adapter_Recordfile extends BaseAdapter {
     private String outputFile = null;
     private MediaRecorder myAudioRecorder;
-    List<Record_item> _formats;
+    List<Record_list> _recordformat;
     LayoutInflater inflater;
     int _layout;
     private Context _Context;
 
     public class Holder{
 
-        TextView date;
-        ImageButton cancel;
-       // ImageButton play;
+        File recordpath;
+        TextView titleName;
+        ImageButton delete;
+        ImageButton play;
     }
 
-    public Adapter_record(NewRecordActivity context, int layout, List<Record_item> formats) {
+    public Adapter_Recordfile(DescRecordActivity context, int layout, List<Record_list> recordformat) {
 
-       // this.formats = formats;
-         _Context= context;
+        // this.formats = formats;
+        _Context= context;
         _layout = layout;
-        _formats = formats;
+        _recordformat = recordformat;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
     }
 
     @Override
     public int getCount() {
-        return _formats.size();
+        return _recordformat.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return _formats.get(position);
+        return _recordformat.get(position);
     }
 
     @Override
@@ -63,19 +64,18 @@ public class Adapter_record extends BaseAdapter {
         final Holder holder;
         if(convertView == null){//if문으로 객체가 없을때 작동,목록에 행들을 출력할 때 모든 객체의 행이 생성되는것이나ㅣ고 화면에 보이는 행들만 생성됨
             holder =new Holder();
-            convertView= inflater.inflate(R.layout.record_message,null);
+            convertView= inflater.inflate(R.layout.record_list,null);
 
-           // holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
-
-            holder.date= (TextView) convertView.findViewById(R.id.item_date);
-            holder.cancel = (ImageButton) convertView.findViewById(R.id.delete);
+            holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
+            holder.titleName= (TextView) convertView.findViewById(R.id.record_name);
+            holder.delete = (ImageButton) convertView.findViewById(R.id.delete);
             convertView.setTag(holder);
         }else {
             holder = (Holder) convertView.getTag();
         }
-        Record_item Re_item = _formats.get(position);
+        Record_list Re_item = _recordformat.get(position);
 
-        holder.date.setText(Re_item.getDate());
+       // holder.titleName.setText(Re_item.getTitle());
 
 
 
@@ -87,12 +87,12 @@ public class Adapter_record extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });*/
-        holder.cancel.setOnClickListener(new View.OnClickListener(){
+        holder.delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
 
-                _formats.remove(position); //or some other task
+                _recordformat.remove(position); //or some other task
                 notifyDataSetChanged();
             }
         });

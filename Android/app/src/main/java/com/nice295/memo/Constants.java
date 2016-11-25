@@ -7,4 +7,5 @@ package com.nice295.memo;
 public class Constants {
     public static final String MEMOS = "_memos";
     public static final String RECORD = "_records";
+
 }

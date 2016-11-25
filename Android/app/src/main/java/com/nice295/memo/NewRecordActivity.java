@@ -63,6 +63,8 @@ public class NewRecordActivity extends AppCompatActivity {
     File mRecodeFile;
     String folder_name;
     File filenow;
+    //private Record_list mNewRecord;
+    private Recycler_item mNewRecordItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +184,10 @@ public class NewRecordActivity extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+
+                            mNewRecordItem.addNewPath(outFile.getAbsolutePath());
+                        } else {
+                            mNewRecordItem.addNewPath(mRecodeFile.getAbsolutePath());
                         }
 
                     } catch (IOException e) {
@@ -257,6 +263,8 @@ public class NewRecordActivity extends AppCompatActivity {
 
             }
         });
+
+        mNewRecordItem = new Recycler_item(R.drawable.ic_mic_black_24dp, title, "", DATE());
     }
 
     //20160826 jaewoo
@@ -346,6 +354,7 @@ public class NewRecordActivity extends AppCompatActivity {
                         //recodeFile_2.delete();
                         mRecodeFile.delete();
                         title = input.getText().toString();
+                        mNewRecordItem.setTitle(title);
                         folder_name = title;
                         File SDCardpath = Environment.getExternalStorageDirectory();
                         filenow = new File(SDCardpath.getAbsolutePath() + "/Unimemo/" + folder_name);
@@ -356,8 +365,9 @@ public class NewRecordActivity extends AppCompatActivity {
                             removeDir(folder_name);
                             Toast.makeText(getApplicationContext(), "변경 실패", Toast.LENGTH_SHORT).show();
                         }
-                        LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
-                        records.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "", DATE()));
+                        LinkedList<Recycler_item> records = Paper.book().read(Constants.RECORD, new LinkedList());
+                        records.add(mNewRecordItem);
+
                         Paper.book().write(Constants.RECORD, records);
 
                         finish();
