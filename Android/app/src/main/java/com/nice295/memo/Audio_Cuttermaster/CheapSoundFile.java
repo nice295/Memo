@@ -19,6 +19,8 @@ package com.nice295.memo.Audio_Cuttermaster;
  * limitations under the License.
  */
 
+import android.view.View;
+
 import java.io.FileInputStream;
 
 
