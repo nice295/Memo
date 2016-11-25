@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nice295.memo.Audio_Cuttermaster.CheapSoundFile;
+import com.nice295.memo.Audio_Cuttermaster.Util;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -34,7 +38,7 @@ import java.util.LinkedList;
 import io.paperdb.Paper;
 
 public class NewRecordActivity extends AppCompatActivity {
-
+    private static final String TAG = "NewRecordActivity";
     public int i = 0;
     int ii;
 
@@ -49,14 +53,17 @@ public class NewRecordActivity extends AppCompatActivity {
     private long lastTimeBackPressed;
     private Runnable mRunnable;
     private Handler mHandler;
+    private Menu mMenu; //khlee
     String fileName;
     private Toast rToast;
-    File recodeFile_2;
+    //File recodeFile_2;
     boolean isRecording;
     String title;
     File myDataPath;
+    File mRecodeFile;
     String folder_name;
     File filenow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +74,7 @@ public class NewRecordActivity extends AppCompatActivity {
 
         final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
         // final File edicc = Environment.getExternalStorageDirectory();
-        isRecording=false;
+        isRecording = false;
         mText = (TextView) findViewById(R.id.recording);
         mButton = (Button) findViewById(R.id.button);
         mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
@@ -88,7 +95,7 @@ public class NewRecordActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isRecording=true;
+                isRecording = true;
                 //menu.findItem(R.id.actoin_complete).setVisible(true);
                 button.setVisibility(View.GONE);
                 fileName = DATE() + ".3gp";
@@ -97,12 +104,12 @@ public class NewRecordActivity extends AppCompatActivity {
                     myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
                     if (!myDataPath.exists())
                         myDataPath.mkdirs();
-                    File recodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
+                    mRecodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
                     myAudioRecorder = new MediaRecorder();
                     myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                     myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
                     myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    myAudioRecorder.setOutputFile(recodeFile.getAbsolutePath());
+                    myAudioRecorder.setOutputFile(mRecodeFile.getAbsolutePath());
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
                     rToast = Toast.makeText(getApplicationContext(), "Start recording", Toast.LENGTH_LONG);
@@ -124,61 +131,15 @@ public class NewRecordActivity extends AppCompatActivity {
             }
         });
 
-
-
-    }
-
-
-    //20160826 jaewoo
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                new AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.back_title))
-                        .setMessage(getString(R.string.back_message))
-                        .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-
-                                if(isRecording==true){
-                                    myAudioRecorder.release();
-                                    removeDir("녹음");
-                                }
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(getString(R.string.CANCEL), null).show();
-                return false;
-            default:
-                return false;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_record, menu);
-        menu.findItem(R.id.actoin_complete).setVisible(false);
-        ArrayList<Record_item> formats = new ArrayList<Record_item>();
-        // formats = getData();
-        final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
-        // final File edicc = Environment.getExternalStorageDirectory();
-        final ArrayList<Record_item> finalFormats = formats;
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                menu.findItem(R.id.actoin_complete).setVisible(true);
+                mMenu.findItem(R.id.actoin_complete).setVisible(true);
 
                 final ListView list = (ListView) findViewById(R.id.list);
                 ArrayList<Record_item> formats = new ArrayList<Record_item>();
                 mButton.setEnabled(false);
                 mHandler = new Handler();
-               /* CheapSoundFile.ProgressListener listener = new CheapSoundFile.ProgressListener() {
-                    public boolean reportProgress(double frac) {
-
-                        return true;
-                    }
-                };
-*/
 
                 if (myAudioRecorder != null) {
                     rToast = Toast.makeText(getApplicationContext(), "Success recording, file saved", Toast.LENGTH_LONG);
@@ -187,19 +148,59 @@ public class NewRecordActivity extends AppCompatActivity {
                     myAudioRecorder.reset();
                     myAudioRecorder.release();
                     myAudioRecorder = null;
+
+                    //trim
+                    CheapSoundFile.ProgressListener listner = new CheapSoundFile.ProgressListener() {
+                        public boolean reportProgress(double frac) {
+                            //Log.d(TAG, "frac: " + frac);
+                            return true;
+                        }
+                    };
+
+                    CheapSoundFile cheapSoundFile = null;
+                    Log.d(TAG, "CheapSoundFile fileName: " + mRecodeFile);
+                    try {
+                        cheapSoundFile = CheapSoundFile.create(mRecodeFile.getAbsolutePath(), listner);
+                        int mSampleRate = cheapSoundFile.getSampleRate();
+                        int mSamplesPerFrame = cheapSoundFile.getSamplesPerFrame();
+                        int frames = cheapSoundFile.getNumFrames();
+
+                        int endTime = frames * mSamplesPerFrame / mSampleRate;
+                        Log.d(TAG, "end time: " + endTime);
+
+                        int startFrame = Util.secondsToFrames(endTime - 5.0, mSampleRate, mSamplesPerFrame);
+                        int endFrame = Util.secondsToFrames(endTime, mSampleRate, mSamplesPerFrame);
+                        Log.d(TAG, "endFrame: " + endFrame);
+                        Log.d(TAG, "startFrame: " + startFrame);
+
+                        if (endTime > 5) {
+                            File outFile = new File(mRecodeFile.getAbsolutePath() + ".3gp");
+
+                            Log.d(TAG, "outFile: " + outFile.getAbsolutePath() + ", " + endTime);
+                            try {
+                                cheapSoundFile.WriteFile(outFile, startFrame, endFrame - startFrame);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 fileName = DATE() + ".3gp";
                 try {
                     File SDCardpath = Environment.getExternalStorageDirectory();
                     myDataPath = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음");
                     if (!myDataPath.exists())
                         myDataPath.mkdirs();
-                    recodeFile_2 = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
+                    mRecodeFile = new File(SDCardpath.getAbsolutePath() + "/Unimemo/녹음/" + fileName);
                     myAudioRecorder = new MediaRecorder();
                     myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
+                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
                     myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    myAudioRecorder.setOutputFile(recodeFile_2.getAbsolutePath());
+                    myAudioRecorder.setOutputFile(mRecodeFile.getAbsolutePath());
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
 
@@ -256,6 +257,44 @@ public class NewRecordActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //20160826 jaewoo
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.back_title))
+                        .setMessage(getString(R.string.back_message))
+                        .setPositiveButton(getString(R.string.YES), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                if (isRecording == true) {
+                                    myAudioRecorder.release();
+                                    removeDir("녹음");
+                                }
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.CANCEL), null).show();
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_record, menu);
+        menu.findItem(R.id.actoin_complete).setVisible(false);
+        ArrayList<Record_item> formats = new ArrayList<Record_item>();
+        // formats = getData();
+        final Adapter_record adapter = new Adapter_record(this, R.layout.activity_new_record, formats);
+        // final File edicc = Environment.getExternalStorageDirectory();
+        final ArrayList<Record_item> finalFormats = formats;
+
+        mMenu = menu; //khlee
 
         return true;
 
@@ -267,13 +306,11 @@ public class NewRecordActivity extends AppCompatActivity {
         if (id == R.id.actoin_complete) {
 
 
-
-
             showAddDialog();
         }
         if (id == android.R.id.home) {
             if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
-                if(isRecording==true) {
+                if (isRecording == true) {
                     myAudioRecorder.release();
                     removeDir("녹음");
                 }
@@ -306,7 +343,8 @@ public class NewRecordActivity extends AppCompatActivity {
                         myAudioRecorder.stop();
                         myAudioRecorder.release();
                         myAudioRecorder = null;
-                        recodeFile_2.delete();
+                        //recodeFile_2.delete();
+                        mRecodeFile.delete();
                         title = input.getText().toString();
                         folder_name = title;
                         File SDCardpath = Environment.getExternalStorageDirectory();
@@ -319,7 +357,7 @@ public class NewRecordActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "변경 실패", Toast.LENGTH_SHORT).show();
                         }
                         LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
-                        records.add(new Recycler_item( R.drawable.ic_mic_black_24dp, title, "", DATE()));
+                        records.add(new Recycler_item(R.drawable.ic_mic_black_24dp, title, "", DATE()));
                         Paper.book().write(Constants.RECORD, records);
 
                         finish();
