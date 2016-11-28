@@ -81,7 +81,7 @@ public class NewRecordActivity extends AppCompatActivity {
         mButton = (Button) findViewById(R.id.button);
         mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-        mdelete = (ImageButton) findViewById(R.id.delete);
+        mdelete = (ImageButton) findViewById(R.id.initial_delete);
         button = (Button) findViewById(R.id.button_first);
         mText.setVisibility(View.GONE);
         mButton.setVisibility(View.GONE);

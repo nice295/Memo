@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nice295.memo.model.Record;
+
 import org.w3c.dom.Text;
 
 import java.io.File;
@@ -22,26 +24,25 @@ import java.util.List;
 public class Adapter_Recordfile extends BaseAdapter {
     private String outputFile = null;
     private MediaRecorder myAudioRecorder;
-    List<Record_list> _recordformat;
+    List<Recycler_item> _recordformat;
     LayoutInflater inflater;
     int _layout;
     private Context _Context;
 
-    public class Holder{
+    public class Holder {
 
-        File recordpath;
-        TextView titleName;
+        TextView recordTitleName;
         ImageButton delete;
         ImageButton play;
     }
 
-    public Adapter_Recordfile(DescRecordActivity context, int layout, List<Record_list> recordformat) {
+    public Adapter_Recordfile(DescRecordActivity context, int layout, List<Recycler_item> recordformat) {
 
         // this.formats = formats;
-        _Context= context;
+        _Context = context;
         _layout = layout;
         _recordformat = recordformat;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -62,20 +63,20 @@ public class Adapter_Recordfile extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
-        if(convertView == null){//if문으로 객체가 없을때 작동,목록에 행들을 출력할 때 모든 객체의 행이 생성되는것이나ㅣ고 화면에 보이는 행들만 생성됨
-            holder =new Holder();
-            convertView= inflater.inflate(R.layout.record_list,null);
+        if (convertView == null) {//if문으로 객체가 없을때 작동,목록에 행들을 출력할 때 모든 객체의 행이 생성되는것이나ㅣ고 화면에 보이는 행들만 생성됨
+            holder = new Holder();
+            convertView = inflater.inflate(R.layout.recordlist, null);
 
-            holder.play = (ImageButton) convertView.findViewById(R.id.play) ;
-            holder.titleName= (TextView) convertView.findViewById(R.id.record_name);
-            holder.delete = (ImageButton) convertView.findViewById(R.id.delete);
+            holder.play = (ImageButton) convertView.findViewById(R.id.play);
+            holder.recordTitleName = (TextView) convertView.findViewById(R.id.record_name);
+            holder.delete = (ImageButton) convertView.findViewById(R.id.list_delete);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (Holder) convertView.getTag();
         }
-        Record_list Re_item = _recordformat.get(position);
+        Recycler_item records = _recordformat.get(position);
 
-       // holder.titleName.setText(Re_item.getTitle());
+//        holder.recordTitleName.setText(records.getTitle());
 
 
 
@@ -87,7 +88,7 @@ public class Adapter_Recordfile extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });*/
-        holder.delete.setOnClickListener(new View.OnClickListener(){
+       holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -97,7 +98,7 @@ public class Adapter_Recordfile extends BaseAdapter {
             }
         });
 
-        return  convertView;
+        return convertView;
     }
 
 

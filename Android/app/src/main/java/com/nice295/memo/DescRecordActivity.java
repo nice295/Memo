@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.nice295.memo.model.Record;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -17,12 +20,12 @@ import io.paperdb.Paper;
 public class DescRecordActivity extends AppCompatActivity {
 
     private static final String TAG = "DescRecordActivity";
-    NewRecordActivity mm;
+    private List<Recycler_item> items;
 
     @Override
     public void onCreate(Bundle saveedInstanceState){
         super.onCreate(saveedInstanceState);
-        setContentView(R.layout.record_list);
+        setContentView(R.layout.recordlist);
         LinkedList<Recycler_item> recordlist = Paper.book().read(Constants.RECORD, new LinkedList());
         for (int idx = 0; idx < recordlist.size(); idx++ ) {
             Log.d(TAG, "Title: " + recordlist.get(idx).getTitle());
@@ -31,6 +34,15 @@ public class DescRecordActivity extends AppCompatActivity {
                 Log.d(TAG, "Path(" + idx1 + "): " + recordlist.get(idx).getPaths().get(idx1).toString());
             }
         }
+
+
+        final Adapter_Recordfile adapater = new Adapter_Recordfile(this, R.layout.recordlist, recordlist);
+        final ListView list = (ListView) findViewById(R.id.recordlist);
+
+
+
+
+
         /*
         ArrayList<Record_list> fileformats = new ArrayList<Record_list>();
 

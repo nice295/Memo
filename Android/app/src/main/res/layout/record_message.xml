@@ -13,7 +13,7 @@
         android:textSize="20sp"
         android:textColor="#030303" />
     <ImageButton
-        android:id="@+id/delete"
+        android:id="@+id/initial_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
