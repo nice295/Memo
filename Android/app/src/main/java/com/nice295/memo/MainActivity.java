@@ -138,15 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        /* khlee: Increase test count as 20
-        Recycler_item[] item = new Recycler_item[5];
-        item[0] = new Recycler_item(R.drawable.a, "Memo1", "#1");
-        item[1] = new Recycler_item(R.drawable.b, "Memo1", "#2");
-        item[2] = new Recycler_item(R.drawable.c, "Memo1", "#3");
-        item[3] = new Recycler_item(R.drawable.d, "Memo1", "#4");
-        item[4] = new Recycler_item(R.drawable.e, "Memo1", "#5");
-        for (int i = 0; i < 5; i++) items.add(item[i]);
-        */
 
         /*khlee: delete again
         int testCount = 20;

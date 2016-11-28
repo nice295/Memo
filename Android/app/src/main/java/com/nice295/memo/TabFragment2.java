@@ -163,9 +163,9 @@ public class TabFragment2 extends Fragment {
                     mAdapter.notifyItemRemoved(position);
                     mAdapter.notifyItemRangeChanged(position, items.size());
                     mAdapter.notifyDataSetChanged();
-                    LinkedList memos = Paper.book().read(Constants.RECORD, new LinkedList());
-                    memos.remove(position);
-                    Paper.book().write(Constants.RECORD, memos);
+                    LinkedList records = Paper.book().read(Constants.RECORD, new LinkedList());
+                    records.remove(position);
+                    Paper.book().write(Constants.RECORD, records);
 
                 }
             });
