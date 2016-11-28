@@ -43,8 +43,12 @@ public class DescRecordActivity extends AppCompatActivity {
 
         final ListView list = (ListView) findViewById(R.id.recordlist);
 
+        Paper.book().write(Constants.RECORD,recordlist);
+
         list.setAdapter(adapater);
         adapater.notifyDataSetChanged();
+
+
 
 
 
