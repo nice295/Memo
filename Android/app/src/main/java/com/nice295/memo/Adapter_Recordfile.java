@@ -28,7 +28,7 @@ public class Adapter_Recordfile extends BaseAdapter {
     LayoutInflater inflater;
     int _layout;
     private Context _Context;
-
+NewRecordActivity mm;
     public class Holder {
 
         TextView recordTitleName;
@@ -65,7 +65,7 @@ public class Adapter_Recordfile extends BaseAdapter {
         final Holder holder;
         if (convertView == null) {//if문으로 객체가 없을때 작동,목록에 행들을 출력할 때 모든 객체의 행이 생성되는것이나ㅣ고 화면에 보이는 행들만 생성됨
             holder = new Holder();
-            convertView = inflater.inflate(R.layout.recordlist, null);
+            convertView = inflater.inflate(R.layout.recorditem, null);
 
             holder.play = (ImageButton) convertView.findViewById(R.id.play);
             holder.recordTitleName = (TextView) convertView.findViewById(R.id.record_name);
@@ -76,7 +76,7 @@ public class Adapter_Recordfile extends BaseAdapter {
         }
         Recycler_item records = _recordformat.get(position);
 
-    //    holder.recordTitleName.setText(records.getTitle());
+       holder.recordTitleName.setText(records.getTitle());
 
 
 
