@@ -76,7 +76,7 @@ public class Adapter_Recordfile extends BaseAdapter {
         }
         Recycler_item records = _recordformat.get(position);
 
-//        holder.recordTitleName.setText(records.getTitle());
+    //    holder.recordTitleName.setText(records.getTitle());
 
 
 
@@ -88,7 +88,7 @@ public class Adapter_Recordfile extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });*/
-       holder.delete.setOnClickListener(new View.OnClickListener() {
+      /* holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -96,7 +96,7 @@ public class Adapter_Recordfile extends BaseAdapter {
                 _recordformat.remove(position); //or some other task
                 notifyDataSetChanged();
             }
-        });
+        });*/
 
         return convertView;
     }

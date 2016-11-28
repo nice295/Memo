@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nice295.memo.model.Record;
 
@@ -22,6 +23,8 @@ public class DescRecordActivity extends AppCompatActivity {
     private static final String TAG = "DescRecordActivity";
     private List<Recycler_item> items;
 
+
+
     @Override
     public void onCreate(Bundle saveedInstanceState){
         super.onCreate(saveedInstanceState);
@@ -37,7 +40,12 @@ public class DescRecordActivity extends AppCompatActivity {
 
 
         final Adapter_Recordfile adapater = new Adapter_Recordfile(this, R.layout.recordlist, recordlist);
+
         final ListView list = (ListView) findViewById(R.id.recordlist);
+
+        list.setAdapter(adapater);
+        adapater.notifyDataSetChanged();
+
 
 
 
