@@ -17,24 +17,22 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:fontFamily="sans-serif-condensed"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/app_name" />
+            app:title="@string/app_name"
+            app:subtitleTextColor="@android:color/black"
+            app:titleTextColor="@android:color/black" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabTextColor="@color/half_black" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_marginTop="104dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -46,7 +44,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/plus"
         android:elevation="6dp"
         app:background="@color/fab_color"
         android:id="@+id/fab_plus"
@@ -84,7 +82,7 @@
         android:layout_toLeftOf="@+id/fab_newRecord"
         android:layout_toStartOf="@+id/fab_newRecord"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="80dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -117,7 +115,13 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="80dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_marginTop="104dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
 
 </android.support.design.widget.CoordinatorLayout>

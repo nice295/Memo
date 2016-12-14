@@ -12,32 +12,44 @@
         android:textColor="#030303" />
 
     <ImageButton
-        android:id="@+id/list_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="12dp"
-        android:background="#D7D7D7"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/ic_clear_black_24dp"
-        android:layout_alignBottom="@+id/item_date"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="17dp" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
         android:background="#D7D7D7"
         android:src="@drawable/ic_play_circle_outline_black_24dp"
         android:scaleX="1"
         android:scaleY="1"
-        android:layout_alignTop="@+id/list_delete"
+        android:id="@+id/play"
+        android:layout_marginRight="15dp"
+
         android:layout_toLeftOf="@+id/list_delete"
-        android:layout_toStartOf="@+id/list_delete"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp"
-        android:id="@+id/play" />
+        android:layout_alignBottom="@+id/record_name"
+        android:layout_alignParentTop="true" />
+
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="#D7D7D7"
+        android:src="@drawable/ic_pause_black_24dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:id="@+id/pause"
+        android:layout_marginRight="15dp"
+
+        android:layout_toLeftOf="@+id/list_delete"
+        android:layout_alignBottom="@+id/record_name"
+        android:layout_alignParentTop="true" />
+    <ImageButton
+        android:id="@+id/list_delete"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:background="#D7D7D7"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:src="@drawable/ic_clear_black_24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/play" />
 
 </RelativeLayout>

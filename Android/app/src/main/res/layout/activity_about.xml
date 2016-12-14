@@ -15,7 +15,7 @@
         android:orientation="vertical" >
 
         <ImageView
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@mipmap/icon"
             android:id="@+id/imageView"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="16dp"
@@ -62,7 +62,7 @@
                 android:id="@+id/imageView2" />
 
             <TextView
-                android:text="SH Na (Designer)"
+                android:text="SH Rha (Designer)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7"
@@ -82,13 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/member1"
-                android:id="@+id/imageView2" />
+                />
 
             <TextView
                 android:text="JW Park (SW Architect)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
+
                 android:layout_weight="1"
                 android:layout_marginLeft="8dp" />
 
@@ -106,13 +106,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/member2"
-                android:id="@+id/imageView2" />
+                />
 
             <TextView
                 android:text="SM Park (Developer)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
+
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -129,13 +129,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/member4"
-                android:id="@+id/imageView2" />
+                 />
 
             <TextView
                 android:text="CH Park (Developer)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
                 android:layout_weight="1" />
 
         </LinearLayout>

@@ -10,36 +10,36 @@
      />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.kgu.UNIMEMO.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/MainAppTheme">
 
         </activity>
         <activity
-            android:name=".NewMemoActivity"
+            android:name="com.kgu.UNIMEMO.NewMemoActivity"
             android:label="@string/title_activity_new_memo"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName="com.kgu.UNIMEMO.MainActivity"></activity>
         <activity
-            android:name=".NewRecordActivity"
+            android:name="com.kgu.UNIMEMO.NewRecordActivity"
             android:label="@string/title_activity_new_record"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName="com.kgu.UNIMEMO.MainActivity"></activity>
         <activity
-        android:name=".DescActivity"
-        android:parentActivityName=".MainActivity"></activity>
+        android:name="com.kgu.UNIMEMO.DescActivity"
+        android:parentActivityName="com.kgu.UNIMEMO.MainActivity"></activity>
         <activity
-            android:name=".DescRecordActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:name="com.kgu.UNIMEMO.DescRecordActivity"
+            android:parentActivityName="com.kgu.UNIMEMO.MainActivity"></activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.kgu.UNIMEMO.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName="com.kgu.UNIMEMO.MainActivity"></activity>
         <activity
-            android:name=".FacebookLoginActivity"
+            android:name="com.kgu.UNIMEMO.FacebookLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullTheme">
             <intent-filter>
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroActivity"
+            android:name="com.kgu.UNIMEMO.IntroActivity"
             android:screenOrientation="portrait"
             android:label="Intro with background"
             android:theme="@style/FullTheme"></activity>

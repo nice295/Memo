@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/record_main"
-    tools:context="com.nice295.memo.NewRecordActivity"
-    android:background="#D7D7D7">
+    tools:context="com.nice295.memo.com.nice295.UNIMEMO.NewRecordActivity"
+    android:background="@android:color/transparent">3
 
     <TextView
         android:layout_width="wrap_content"
